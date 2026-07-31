@@ -84,6 +84,16 @@ export const en: Dictionary = {
     subtitle: "Alhamdulillah — real marriages that started here.",
     empty: "New success stories are added as couples share their journey.",
   },
+  pricing: {
+    title: "Simple, honest pricing",
+    subtitle: "Start free. Upgrade only when you're ready to go further.",
+    perMonth: "/ month",
+    forever: "forever",
+    mostPopular: "Most Popular",
+    ctaFree: "Start Free",
+    ctaPaid: "Get Started",
+    note: "Prices in Qatari Riyal. Cancel anytime — no questions asked.",
+  },
   cta: {
     title: "Ready to begin your journey?",
     subtitle: "Create your profile today and let Waleef help you find your life partner.",

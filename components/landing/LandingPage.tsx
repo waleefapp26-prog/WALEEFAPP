@@ -5,6 +5,7 @@ import { LandingFeatureGrid } from "./LandingFeatureGrid";
 import { LandingFooter } from "./LandingFooter";
 import { LandingHero } from "./LandingHero";
 import { LandingNav } from "./LandingNav";
+import { LandingPricing } from "./LandingPricing";
 import { LandingSteps } from "./LandingSteps";
 import { LandingTestimonials } from "./LandingTestimonials";
 import { LandingTrust } from "./LandingTrust";
@@ -18,6 +19,7 @@ export function LandingPage() {
       <LandingSteps />
       <LandingTrust />
       <LandingTestimonials />
+      <LandingPricing />
       <LandingFaq />
       <LandingCta />
       <LandingFooter />

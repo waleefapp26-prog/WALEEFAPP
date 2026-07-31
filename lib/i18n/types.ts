@@ -53,6 +53,16 @@ export type Dictionary = {
     subtitle: string;
     empty: string;
   };
+  pricing: {
+    title: string;
+    subtitle: string;
+    perMonth: string;
+    forever: string;
+    mostPopular: string;
+    ctaFree: string;
+    ctaPaid: string;
+    note: string;
+  };
   cta: {
     title: string;
     subtitle: string;

@@ -9,7 +9,7 @@ export function LandingCta() {
   const { dictionary } = useTranslation();
 
   return (
-    <section id="pricing" className={styles.section}>
+    <section className={styles.section}>
       <div className={styles.ctaWrap}>
         <div className={`${styles.ctaBox} animateFadeUp`}>
           <h2 className={styles.ctaTitle}>{dictionary.cta.title}</h2>
