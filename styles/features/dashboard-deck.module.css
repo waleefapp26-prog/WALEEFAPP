@@ -13,23 +13,39 @@
 
 .header {
   max-width: 28rem;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.75rem;
 }
 
 .headerRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .filterBtn {
-  padding: 0.5rem;
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--border-gray-200);
   background: var(--waleef-white);
   border-radius: 9999px;
   cursor: pointer;
   color: var(--waleef-text);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  box-shadow: 0 1px 3px rgba(26, 26, 26, 0.06);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease;
+}
+
+.filterBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(26, 26, 26, 0.1);
 }
 
 .filterBtn:hover {
@@ -38,6 +54,8 @@
 
 .sub {
   color: var(--waleef-text-secondary);
+  margin-top: 0.35rem;
+  font-size: 0.9375rem;
 }
 
 .stack {

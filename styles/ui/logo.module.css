@@ -19,6 +19,15 @@
   color: transparent;
 }
 
+/* Cormorant Garamond has no Arabic glyphs, so the Arabic wordmark falls back
+ * to the Arabic display face and needs a little more weight to hold the same
+ * visual presence as the latin one. */
+.wordmarkAr {
+  font-family: "Cairo", var(--font-body);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
 .nav {
   font-size: 2.25rem;
   line-height: 2.5rem;

@@ -14,6 +14,7 @@ import styles from "@/styles/features/dashboard-deck.module.css";
 import { FilterPanel } from "./FilterPanel";
 import { MatchDeckActions } from "./MatchDeckActions";
 import { MatchProfileCard } from "./MatchProfileCard";
+import { QuickActions } from "./QuickActions";
 
 type Props = {
   initialCandidates: Profile[];
@@ -105,18 +106,9 @@ export function DashboardScreen({ initialCandidates, currentUserId }: Props) {
           </button>
         </div>
         <p className={styles.sub}>{loadingCandidates ? dictionary.deck.loadingMatches : dictionary.deck.todaysMatches}</p>
-        <p className={styles.matchInsight}>
-          <Link href="/dashboard/questionnaire">{dictionary.deck.completeQuiz}</Link>
-        </p>
-        <p className={styles.matchInsight}>
-          <Link href="/dashboard/photos">{dictionary.deck.managePhotos}</Link>
-        </p>
-        <p className={styles.matchInsight}>
-          <Link href="/dashboard/verification">{dictionary.deck.getVerified}</Link>
-        </p>
-        <p className={styles.matchInsight}>
-          <Link href="/dashboard/privacy">{dictionary.deck.privacySettings}</Link>
-        </p>
+        {/* Was four stacked underlined links; same destinations, but as
+            scannable icon chips instead of a wall of sentences. */}
+        <QuickActions />
       </header>
 
       <FilterPanel

@@ -227,6 +227,13 @@ export const en: Dictionary = {
     seeWhyStrongMatch: "See why this is a strong match",
     filterMatches: "Filter Matches",
   },
+  quickActions: {
+    title: "Quick actions",
+    quiz: "Compatibility quiz",
+    photos: "My photos",
+    verify: "Get verified",
+    privacy: "Privacy",
+  },
   filterPanel: {
     title: "Filter Matches",
     ageRange: "Age range",

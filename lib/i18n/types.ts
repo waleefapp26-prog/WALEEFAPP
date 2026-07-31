@@ -120,6 +120,13 @@ export type Dictionary = {
     seeWhyStrongMatch: string;
     filterMatches: string;
   };
+  quickActions: {
+    title: string;
+    quiz: string;
+    photos: string;
+    verify: string;
+    privacy: string;
+  };
   filterPanel: {
     title: string;
     ageRange: string;

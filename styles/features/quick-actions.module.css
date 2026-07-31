@@ -1,0 +1,81 @@
+/* Horizontally scrollable on phones, wraps into a grid once there's room. */
+.row {
+  display: flex;
+  gap: 0.65rem;
+  max-width: 28rem;
+  margin: 1.25rem auto 0;
+  padding: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem 0.55rem 0.55rem;
+  border-radius: 9999px;
+  background: var(--waleef-white);
+  border: 1px solid var(--border-gray-200);
+  box-shadow: 0 1px 3px rgba(26, 26, 26, 0.05);
+  text-decoration: none;
+  color: var(--waleef-text);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(26, 26, 26, 0.1);
+  border-color: transparent;
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  color: var(--waleef-white);
+  flex-shrink: 0;
+}
+
+.tonePink {
+  background: var(--waleef-gradient-h);
+}
+
+.toneOrange {
+  background: linear-gradient(135deg, #ff8a5c, #ffb27a);
+}
+
+.toneGold {
+  background: linear-gradient(135deg, var(--waleef-gold-light), var(--waleef-gold));
+}
+
+.toneSlate {
+  background: linear-gradient(135deg, #6b7280, #9ca3af);
+}
+
+.label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .row {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+  }
+}

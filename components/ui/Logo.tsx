@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { cn } from "@/lib/cn";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import styles from "@/styles/ui/logo.module.css";
 
 type Variant = "nav" | "auth" | "dashboard" | "footer";
@@ -26,6 +29,11 @@ const markSize: Record<Variant, number> = {
 };
 
 export function Logo({ variant, as: Tag = "span", className, withMark = true }: Props) {
+  const { locale } = useTranslation();
+  // The brand reads as وليف in Arabic -- leaving it latin was the one bit of
+  // the UI that stayed English after switching language.
+  const wordmark = locale === "ar" ? "وليف" : "Waleef";
+
   return (
     <span className={cn(styles.lockup, className)}>
       {withMark ? (
@@ -38,7 +46,9 @@ export function Logo({ variant, as: Tag = "span", className, withMark = true }: 
           priority={variant === "nav"}
         />
       ) : null}
-      <Tag className={cn(styles.wordmark, variantClass[variant])}>Waleef</Tag>
+      <Tag className={cn(styles.wordmark, variantClass[variant], locale === "ar" && styles.wordmarkAr)}>
+        {wordmark}
+      </Tag>
     </span>
   );
 }

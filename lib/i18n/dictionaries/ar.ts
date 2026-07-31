@@ -222,6 +222,13 @@ export const ar: Dictionary = {
     seeWhyStrongMatch: "شاهد لماذا هذا تطابق قوي",
     filterMatches: "تصفية التطابقات",
   },
+  quickActions: {
+    title: "إجراءات سريعة",
+    quiz: "اختبار التوافق",
+    photos: "صوري",
+    verify: "التوثيق",
+    privacy: "الخصوصية",
+  },
   filterPanel: {
     title: "تصفية التطابقات",
     ageRange: "الفئة العمرية",
