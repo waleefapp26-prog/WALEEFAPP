@@ -1,3 +1,5 @@
+"use client";
+
 import { Check, Crown, Shield, Sparkles } from "lucide-react";
 import { Button, Card } from "@/components/ui";
 import { SUBSCRIPTION_PLANS } from "@/lib/content/subscription-plans";
