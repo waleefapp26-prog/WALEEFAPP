@@ -338,3 +338,33 @@ begin
 end;
 $$;
 grant execute on function public.delete_conversation(uuid) to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- K. Reconcile public.notifications (applied 2026-07-31)
+--
+-- schema-phase3.sql created this table with `create table if not exists`, but
+-- a notifications table already existed from earlier separate work with a
+-- different shape (`read_at` instead of `read`, `data` instead of `metadata`,
+-- and no `link` at all). The `if not exists` guard meant the CREATE silently
+-- did nothing, while the RLS policies and the type CHECK constraint further
+-- down the file *did* apply -- so the mismatch looked like a working table.
+--
+-- Effect: getUnreadNotificationCount() selects `read`, so every /dashboard
+-- request 500'd with `column notifications.read does not exist` (Postgres
+-- 42703), which Next.js masks in production as `{"message":""}` behind an
+-- error digest. The phase-3 triggers insert `link`, so swipes and messages
+-- would have failed for the same reason once exercised.
+--
+-- Additive only: nothing is dropped or renamed, so the original `data` and
+-- `read_at` columns are left intact.
+-- ---------------------------------------------------------------------------
+
+alter table public.notifications add column if not exists link text;
+alter table public.notifications add column if not exists read boolean not null default false;
+alter table public.notifications add column if not exists metadata jsonb;
+
+-- Keep `read` consistent with the pre-existing `read_at` for any older rows.
+update public.notifications set read = true where read_at is not null and read = false;
+
+create index if not exists notifications_user_unread_idx
+  on public.notifications (user_id, read) where read = false;
