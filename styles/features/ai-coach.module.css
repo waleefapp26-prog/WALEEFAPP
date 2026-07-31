@@ -1,6 +1,7 @@
+/* Same as the chat screen: fill the space the dashboard shell provides, so
+ * the message input stays reachable instead of sitting under the nav. */
 .page {
-  min-height: 100vh;
-  height: 100dvh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));

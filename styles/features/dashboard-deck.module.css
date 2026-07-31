@@ -1,13 +1,13 @@
 .page {
   min-height: 100vh;
   padding: 1.5rem;
-  padding-bottom: 6rem;
+  padding-bottom: 2rem;
   background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
 }
 
 @media (min-width: 768px) {
   .page {
-    padding-bottom: 8rem;
+    padding-bottom: 2.5rem;
   }
 }
 

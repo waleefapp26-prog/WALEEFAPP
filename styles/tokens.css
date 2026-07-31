@@ -23,6 +23,13 @@
   --border-soft: 1px solid rgba(229, 231, 235, 1);
   --border-gray-200: #e5e7eb;
 
+  /* Dashboard chrome. --nav-height is what the fixed mobile bottom bar
+   * occupies; every scrollable dashboard screen reserves this much space so
+   * the bar can't sit on top of inputs or action buttons. On laptop the nav
+   * becomes a side rail of --sidebar-width instead. */
+  --nav-height: 4.25rem;
+  --sidebar-width: 15rem;
+
   --waleef-footer-bg: #2b1320;
   --waleef-footer-text: #f5ece7;
   --waleef-footer-text-muted: #c9a8b3;

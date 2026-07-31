@@ -4,6 +4,13 @@
   padding: 1rem 1.5rem 0;
 }
 
+@media (min-width: 1024px) {
+  /* Keeps the notification bell clear of the side rail. */
+  .header {
+    padding-inline-start: calc(var(--sidebar-width) + 1.5rem);
+  }
+}
+
 .bellBtn {
   position: relative;
   display: inline-flex;

@@ -1,0 +1,39 @@
+/* App-shell layout for the dashboard.
+ *
+ * The shell owns the viewport height and lays out [header | content] as a
+ * flex column, so full-height screens (chat, AI coach) can simply be
+ * height:100% and land exactly in the space that's actually left -- rather
+ * than each guessing 100dvh and then overflowing underneath the header and
+ * the navigation.
+ *
+ * Content is the scroll container, so the fixed nav never covers it. */
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.header {
+  flex: 0 0 auto;
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media (max-width: 1023px) {
+  /* Nav is a fixed bottom bar: reserve its height inside the scroll area. */
+  .content {
+    padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Nav is a side rail: inset horizontally, full height available. */
+  .content {
+    padding-inline-start: var(--sidebar-width);
+  }
+}

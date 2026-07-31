@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  padding-bottom: 7rem;
+  padding-bottom: 7rem; /* clears this screen's own fixed .bottomBar */
   background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
 }
 
@@ -156,15 +156,23 @@
   height: 6px;
 }
 
+/* Sits directly above the dashboard nav rather than colliding with it: offset
+ * by the bar height on mobile, clear of the side rail on laptop. */
 .bottomBar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+  inset-inline: 0;
   background: var(--waleef-white);
   border-top: 1px solid var(--border-gray-200);
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   z-index: 30;
+}
+
+@media (min-width: 1024px) {
+  .bottomBar {
+    bottom: 0;
+    inset-inline-start: var(--sidebar-width);
+  }
 }
 
 .bottomInner {

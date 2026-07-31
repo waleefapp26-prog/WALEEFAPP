@@ -1,6 +1,8 @@
+/* Fills exactly the space the dashboard shell hands over, so the composer
+ * lands at the bottom of the usable area rather than underneath the nav
+ * (which previously covered the input and send button outright). */
 .page {
-  min-height: 100vh;
-  height: 100dvh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
