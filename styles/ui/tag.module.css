@@ -1,0 +1,31 @@
+.tag {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 2px solid var(--border-gray-200);
+  background: var(--waleef-white);
+  color: var(--waleef-text-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.tag:hover {
+  border-color: var(--waleef-pink);
+}
+
+.tag:active {
+  transform: scale(0.97);
+}
+
+.selected {
+  border-color: transparent;
+  background: var(--waleef-gradient-h);
+  color: var(--waleef-white);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.25);
+}

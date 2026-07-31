@@ -1,0 +1,30 @@
+:root {
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Outfit", sans-serif;
+  --font-size: 16px;
+
+  --waleef-pink: #ff6b9d;
+  --waleef-orange: #ff8a5c;
+  --waleef-gradient: linear-gradient(135deg, #ff6b9d 0%, #ff8a5c 100%);
+  --waleef-gradient-h: linear-gradient(90deg, #ff6b9d 0%, #ff8a5c 100%);
+  --waleef-beige: #f5f1e8;
+  --waleef-cream: #fff8f0;
+  --waleef-gold: #d4af37;
+  --waleef-gold-light: #e8c870;
+  --waleef-text: #1a1a1a;
+  --waleef-text-secondary: #6b6b6b;
+  --waleef-white: #ffffff;
+
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --shadow-card: 0 10px 40px rgba(26, 26, 26, 0.08);
+  --shadow-float: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --border-soft: 1px solid rgba(229, 231, 235, 1);
+  --border-gray-200: #e5e7eb;
+
+  --waleef-footer-bg: #2b1320;
+  --waleef-footer-text: #f5ece7;
+  --waleef-footer-text-muted: #c9a8b3;
+  --waleef-footer-border: rgba(212, 175, 55, 0.25);
+}

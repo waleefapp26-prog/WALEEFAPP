@@ -1,0 +1,87 @@
+/* Base text input */
+.input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 2px solid var(--border-gray-200);
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--waleef-text);
+  background: var(--waleef-white);
+  transition: border-color 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--waleef-text-secondary);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--waleef-pink);
+}
+
+.input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background: var(--waleef-beige);
+}
+
+.inputInvalid {
+  border-color: #e63946;
+}
+
+.inputInvalid:focus {
+  border-color: #e63946;
+}
+
+/* Leading icon layout */
+.wrap {
+  position: relative;
+  display: block;
+}
+
+.start {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  color: var(--waleef-text-secondary);
+  pointer-events: none;
+}
+
+.inputWithStart {
+  padding-left: 3rem;
+}
+
+/* OTP cells */
+.otpRow {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.otpInput {
+  width: 3rem;
+  height: 3.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 2px solid var(--border-gray-200);
+  font-family: inherit;
+  color: var(--waleef-text);
+  background: var(--waleef-white);
+  transition: border-color 0.2s ease;
+}
+
+.otpInput:focus {
+  outline: none;
+  border-color: var(--waleef-pink);
+}
+
+.otpInputInvalid {
+  border-color: #e63946;
+}

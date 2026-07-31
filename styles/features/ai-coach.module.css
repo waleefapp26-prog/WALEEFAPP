@@ -1,0 +1,259 @@
+.page {
+  min-height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.hero {
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  padding: 2rem 1.5rem;
+  color: #fff;
+}
+
+.heroInner {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.heroRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.heroIcon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.heroSub {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.85);
+}
+
+.topics {
+  background: var(--waleef-white);
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+}
+
+.topicsInner {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.topicsLabel {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.chipRow {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.chipPink {
+  background: #fdf2f8;
+  color: #ff6b9d;
+}
+
+.chipPink:hover {
+  background: #fce7f3;
+}
+
+.chipOrange {
+  background: #fff7ed;
+  color: #ff8a5c;
+}
+
+.chipOrange:hover {
+  background: #ffedd5;
+}
+
+.chipPurple {
+  background: #faf5ff;
+  color: #9333ea;
+}
+
+.chipPurple:hover {
+  background: #f3e8ff;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.messagesInner {
+  max-width: 42rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.msgRow {
+  display: flex;
+  align-items: flex-end;
+}
+
+.msgEnd {
+  justify-content: flex-end;
+}
+
+.msgStart {
+  justify-content: flex-start;
+}
+
+.aiAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(to bottom right, #ff6b9d, #ff8a5c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.bubble {
+  max-width: 75%;
+  border-radius: 20px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.bubbleUser {
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  color: #fff;
+}
+
+.bubbleAi {
+  background: var(--waleef-white);
+  border: 1px solid #e5e7eb;
+  color: var(--waleef-text);
+}
+
+.bubbleText {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.suggestions {
+  padding: 0 1.5rem 1rem;
+}
+
+.suggestionsInner {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.suggLabel {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.suggGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .suggGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.suggCard {
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.suggCard:hover {
+  border-color: #ff6b9d;
+}
+
+.footer {
+  background: var(--waleef-white);
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+}
+
+.footerInner {
+  max-width: 42rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.input {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid #e5e7eb;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #ff6b9d;
+}
+
+.send {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  color: #fff;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.send:active {
+  transform: scale(0.96);
+}

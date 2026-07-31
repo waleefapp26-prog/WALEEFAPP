@@ -1,0 +1,84 @@
+.page {
+  min-height: 100vh;
+  padding: 1.5rem;
+  padding-bottom: 7rem;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.inner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  margin: 0;
+}
+
+.sub {
+  color: var(--waleef-text-secondary);
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linkReset {
+  text-decoration: none;
+  color: inherit;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.unread {
+  border: 1px solid var(--waleef-pink);
+}
+
+.iconWrap {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--waleef-beige);
+  color: var(--waleef-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.notifTitle {
+  margin: 0;
+  font-weight: 500;
+}
+
+.notifBody {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.notifTime {
+  margin: 0.375rem 0 0;
+  font-size: 0.75rem;
+  color: var(--waleef-text-secondary);
+}

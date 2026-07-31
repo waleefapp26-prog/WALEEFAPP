@@ -1,0 +1,19 @@
+.textarea {
+  width: 100%;
+  min-height: 10rem;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 2px solid var(--border-gray-200);
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--waleef-text);
+  background: var(--waleef-white);
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--waleef-pink);
+}

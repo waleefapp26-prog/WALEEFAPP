@@ -1,0 +1,60 @@
+.page {
+  min-height: 100vh;
+  padding: 1.5rem;
+  padding-bottom: 7rem;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.inner {
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.progressWrap {
+  margin-bottom: 2rem;
+}
+
+.stepTitle {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.stepLead {
+  color: var(--waleef-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.questionList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.questionBlock {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-gray-200);
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btnFlex {
+  flex: 1;
+}

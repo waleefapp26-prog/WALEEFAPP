@@ -1,0 +1,42 @@
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mark {
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.wordmark {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  background: var(--waleef-gradient-h);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.auth {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.dashboard {
+  font-size: 2.75rem;
+  line-height: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer {
+  font-size: 1.875rem;
+  margin-bottom: 1rem;
+}

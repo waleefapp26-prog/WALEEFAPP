@@ -1,0 +1,37 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ageRow {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.ageField {
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.actionBtn {
+  flex: 1;
+}

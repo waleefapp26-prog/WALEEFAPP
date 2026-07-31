@@ -1,0 +1,27 @@
+.root {
+  width: 100%;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.metaLabel {
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.metaPct {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--waleef-pink);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 0.5rem;
+}

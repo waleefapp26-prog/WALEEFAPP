@@ -1,0 +1,189 @@
+.page {
+  min-height: 100vh;
+  padding-bottom: 7rem;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.hero {
+  height: 24rem;
+  background: linear-gradient(to bottom right, #f9a8d4, #fdba74);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroLetter {
+  font-size: 8rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.95);
+  font-family: var(--font-display);
+}
+
+.heroBadges {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.heroMatch {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.content {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  margin-top: -3rem;
+  position: relative;
+}
+
+.cardSpaced {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--waleef-text-secondary);
+  margin-bottom: 1rem;
+}
+
+.bio {
+  color: var(--waleef-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.interestRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.interest {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: var(--waleef-pink);
+  background: linear-gradient(90deg, #fdf2f8, #fff7ed);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.row + .row {
+  margin-top: 1rem;
+}
+
+.iconPink {
+  color: var(--waleef-pink);
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.cell {
+  padding: 1rem;
+  background: var(--waleef-cream);
+  border-radius: 12px;
+}
+
+.cellLabel {
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+  margin-bottom: 0.25rem;
+  text-transform: capitalize;
+}
+
+.cellValue {
+  font-weight: 500;
+}
+
+.scoreRow {
+  margin-top: 1rem;
+}
+
+.scoreRow:first-child {
+  margin-top: 0;
+}
+
+.scoreHead {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.scoreLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.scorePct {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--waleef-pink);
+}
+
+.barSvg {
+  display: block;
+  width: 100%;
+  height: 6px;
+}
+
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--waleef-white);
+  border-top: 1px solid var(--border-gray-200);
+  padding: 1.5rem;
+  z-index: 30;
+}
+
+.bottomInner {
+  max-width: 42rem;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.bottomBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+}

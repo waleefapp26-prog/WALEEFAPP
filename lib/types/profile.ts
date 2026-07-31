@@ -1,0 +1,27 @@
+export type Profile = {
+  id: string;
+  fullName: string | null;
+  pseudonym: string | null;
+  photoVerified: boolean;
+  age: number | null;
+  gender: "male" | "female" | null;
+  phone: string | null;
+  location: string | null;
+  prayerFrequency: string[];
+  hijabPreference: string | null;
+  education: string | null;
+  occupation: string | null;
+  bio: string | null;
+  interests: string[];
+  lookingFor: string | null;
+  avatarUrl: string | null;
+  verified: boolean;
+  premium: boolean;
+  onboardingComplete: boolean;
+  subscriptionTier: "free" | "premium" | "gold";
+  subscriptionExpiresAt: string | null;
+  isAdmin: boolean;
+  incognito: boolean;
+  chatRetentionDays: number | null;
+  createdAt: string;
+};

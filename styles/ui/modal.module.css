@@ -1,0 +1,57 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  padding: 0;
+}
+
+.panel {
+  width: 100%;
+  max-width: 32rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 24px 24px 0 0;
+  padding: 1.5rem;
+  background: var(--waleef-white);
+  box-shadow: var(--shadow-float);
+}
+
+@media (min-width: 640px) {
+  .backdrop {
+    align-items: center;
+    padding: 1.5rem;
+  }
+
+  .panel {
+    border-radius: 24px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.closeBtn {
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: var(--waleef-text-secondary);
+}
+
+.closeBtn:hover {
+  background: var(--waleef-beige);
+}

@@ -1,0 +1,15 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 48rem;
+  margin: 0 auto;
+  color: var(--waleef-text-secondary);
+  line-height: 1.7;
+}
+
+.heading {
+  font-size: 1.375rem;
+  color: var(--waleef-text);
+  margin-bottom: 0.5rem;
+}

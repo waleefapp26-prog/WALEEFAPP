@@ -1,0 +1,19 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.star {
+  color: var(--waleef-gold);
+  fill: var(--waleef-gold);
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.compact {
+  gap: 0.125rem;
+}

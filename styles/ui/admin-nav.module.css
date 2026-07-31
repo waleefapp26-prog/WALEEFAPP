@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 0;
+  max-width: 64rem;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.link {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--waleef-text-secondary);
+  text-decoration: none;
+  background: var(--waleef-white);
+}
+
+.linkActive {
+  background: var(--waleef-gradient-h);
+  color: #fff;
+}

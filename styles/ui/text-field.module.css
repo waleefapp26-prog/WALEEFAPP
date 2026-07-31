@@ -1,0 +1,50 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 2px solid var(--border-gray-200);
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--waleef-text);
+  background: var(--waleef-white);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.input:hover {
+  border-color: #d1d5db;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--waleef-pink);
+  box-shadow: 0 10px 25px rgba(255, 107, 157, 0.12);
+}
+
+.inputError {
+  border-color: #f87171;
+}
+
+.inputError:focus {
+  border-color: #ef4444;
+  box-shadow: none;
+}
+
+.errorText {
+  font-size: 0.875rem;
+  color: #ef4444;
+}

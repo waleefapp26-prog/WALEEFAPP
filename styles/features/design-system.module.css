@@ -1,0 +1,219 @@
+.page {
+  min-height: 100vh;
+  padding: 2rem 1.5rem 6rem;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroSub {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--waleef-text-secondary);
+}
+
+.section {
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  margin: 0 0 1.5rem;
+  font-size: 1.875rem;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.swatches {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.swatch {
+  height: 6rem;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+}
+
+.gradPrimary {
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+}
+
+.beige {
+  background: #f5f1e8;
+}
+
+.cream {
+  background: #fff8f0;
+}
+
+.gradGold {
+  background: linear-gradient(to right, #d4af37, #e8c870);
+}
+
+.swatchLabel {
+  margin: 0;
+  font-weight: 500;
+}
+
+.swatchMeta {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.btnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.matchRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.spacingDemo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bar {
+  height: 0.5rem;
+  border-radius: 4px;
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+}
+
+.w16 {
+  width: 4rem;
+}
+
+.w24 {
+  width: 6rem;
+}
+
+.w32 {
+  width: 8rem;
+}
+
+.w48 {
+  width: 12rem;
+}
+
+.radiusGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .radiusGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.radiusBox {
+  height: 5rem;
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  margin-bottom: 0.5rem;
+}
+
+.r12 {
+  border-radius: 12px;
+}
+
+.r16 {
+  border-radius: 16px;
+}
+
+.r20 {
+  border-radius: 20px;
+}
+
+.r24 {
+  border-radius: 24px;
+}
+
+.radiusLabel {
+  margin: 0;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.typoH1 {
+  margin: 0 0 0.5rem;
+}
+
+.typoH2 {
+  margin: 0 0 0.5rem;
+}
+
+.typoH3 {
+  margin: 0 0 0.5rem;
+}
+
+.typoBody {
+  margin: 0 0 0.5rem;
+}
+
+.typoMuted {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}

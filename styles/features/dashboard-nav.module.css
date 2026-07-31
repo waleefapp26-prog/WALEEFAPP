@@ -1,0 +1,100 @@
+.dockWrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem 1.5rem;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .dockWrap {
+    padding-bottom: 0.75rem;
+  }
+}
+
+.dock {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  border-radius: 9999px;
+  padding: 1rem 1.5rem;
+  box-shadow: var(--shadow-float);
+  border: 1px solid var(--border-gray-200);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dockItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--waleef-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.dockItem:hover {
+  background: var(--waleef-beige);
+}
+
+.dockActive {
+  background: var(--waleef-gradient-h);
+  color: var(--waleef-white);
+}
+
+.dockActive:hover {
+  background: var(--waleef-gradient-h);
+  color: var(--waleef-white);
+}
+
+.dockLangToggle {
+  border: none;
+  padding: 0.75rem 1rem;
+}
+
+@media (max-width: 767px) {
+  .dockLangToggle span {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .dock {
+    width: 100%;
+    max-width: none;
+    justify-content: space-between;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .dockItem {
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0.5rem 0.35rem;
+    font-size: 0.625rem;
+  }
+
+  .dockItem span {
+    max-width: 4.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

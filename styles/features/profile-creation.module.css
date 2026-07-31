@@ -1,0 +1,56 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.inner {
+  width: 100%;
+  max-width: 28rem;
+}
+
+.stepBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stepTitle {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.stepLead {
+  color: var(--waleef-text-secondary);
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.progressWrap {
+  margin-bottom: 2rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btnFlex {
+  flex: 1;
+}

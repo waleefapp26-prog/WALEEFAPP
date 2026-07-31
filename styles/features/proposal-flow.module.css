@@ -1,0 +1,188 @@
+.page {
+  min-height: 100vh;
+  padding: 1.5rem;
+  padding-bottom: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.inner {
+  width: 100%;
+  max-width: 42rem;
+}
+
+.progressWrap {
+  margin-bottom: 2rem;
+}
+
+.center {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.stepTitle {
+  font-size: 1.875rem;
+  margin: 0 0 0.75rem;
+}
+
+.stepSub {
+  margin: 0;
+  color: var(--waleef-text-secondary);
+}
+
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.optionCard {
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.optionCard:hover {
+  border-color: #e5e7eb;
+}
+
+.optionSelected {
+  border-color: #ff6b9d;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+}
+
+.optionRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.iconCircle {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--waleef-beige, #f5f1e8);
+  color: var(--waleef-text-secondary);
+}
+
+.iconCircleOn {
+  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  color: #fff;
+}
+
+.optionBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.optionHeading {
+  margin: 0 0 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.optionDesc {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.control {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 2px solid #e5e7eb;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.control:focus {
+  border-color: #ff6b9d;
+}
+
+.successWrap {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.successIcon {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto 1.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #22c55e, #10b981);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.successTitle {
+  font-size: 1.875rem;
+  margin: 0 0 1rem;
+}
+
+.successBody {
+  margin: 0 auto 2rem;
+  max-width: 28rem;
+  color: var(--waleef-text-secondary);
+}
+
+.nextCard {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.nextTitle {
+  margin: 0 0 0.5rem;
+  font-weight: 500;
+}
+
+.nextList {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--waleef-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  list-style: decimal;
+  list-style-position: outside;
+}
+
+.nextList li + li {
+  margin-top: 0.5rem;
+}
+
+.eta {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--waleef-text-secondary);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.actionBtn {
+  flex: 1;
+}

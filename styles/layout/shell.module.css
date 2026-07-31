@@ -1,0 +1,8 @@
+.shell {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, var(--waleef-cream), var(--waleef-white));
+}
+
+.main {
+  min-height: 100vh;
+}

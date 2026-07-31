@@ -1,0 +1,351 @@
+export type Locale = "en" | "ar";
+
+export type Dictionary = {
+  common: {
+    getStarted: string;
+    languageToggle: string;
+    continue: string;
+    back: string;
+    save: string;
+    cancel: string;
+    apply: string;
+    reset: string;
+    loading: string;
+  };
+  nav: {
+    features: string;
+    howItWorks: string;
+    pricing: string;
+  };
+  hero: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+  };
+  features: {
+    title: string;
+    subtitle: string;
+  };
+  steps: {
+    title: string;
+    subtitle: string;
+  };
+  testimonials: {
+    title: string;
+    subtitle: string;
+  };
+  trust: {
+    title: string;
+    subtitle: string;
+    verification: { title: string; description: string };
+    privacy: { title: string; description: string };
+    wali: { title: string; description: string };
+  };
+  faq: {
+    title: string;
+    subtitle: string;
+    items: { question: string; answer: string }[];
+  };
+  successStories: {
+    title: string;
+    subtitle: string;
+    empty: string;
+  };
+  cta: {
+    title: string;
+    subtitle: string;
+    button: string;
+  };
+  footer: {
+    tagline: string;
+    rights: string;
+    columns: {
+      product: string;
+      company: string;
+      support: string;
+    };
+  };
+  about: { title: string; intro: string; mission: string; missionBody: string; values: string; valuesBody: string; qatar: string; qatarBody: string };
+  privacyPage: { title: string; intro: string; sections: { heading: string; body: string }[] };
+  termsPage: { title: string; intro: string; sections: { heading: string; body: string }[] };
+  helpPage: { title: string; intro: string; items: { question: string; answer: string }[] };
+  auth: {
+    tagline: string;
+    login: string;
+    signUp: string;
+    continueWithGoogle: string;
+    redirecting: string;
+    or: string;
+    emailPlaceholder: string;
+    agreeTerms: string;
+    newHere: string;
+    alreadyHaveAccount: string;
+    sendingCode: string;
+    verifyEmailTitle: string;
+    verifyEmailSub: string;
+    verifyAndContinue: string;
+    verifying: string;
+    changeEmail: string;
+    sessionExpired: string;
+    genericError: string;
+  };
+  dashboardNav: {
+    matches: string;
+    chats: string;
+    aiCoach: string;
+    family: string;
+    premium: string;
+  };
+  deck: {
+    loadingMatches: string;
+    todaysMatches: string;
+    completeQuiz: string;
+    managePhotos: string;
+    getVerified: string;
+    privacySettings: string;
+    noMoreMatches: string;
+    checkBackTomorrow: string;
+    seeWhyStrongMatch: string;
+    filterMatches: string;
+  };
+  filterPanel: {
+    title: string;
+    ageRange: string;
+    min: string;
+    max: string;
+    location: string;
+    locationPlaceholder: string;
+    education: string;
+    interests: string;
+  };
+  photoVisibility: {
+    title: string;
+    whoCanSee: string;
+    public: string;
+    afterMatch: string;
+    afterApproval: string;
+    hidden: string;
+  };
+  chatList: {
+    title: string;
+    empty: string;
+    sayAssalamu: string;
+    yourMatch: string;
+  };
+  privacyScreen: {
+    title: string;
+    sub: string;
+    incognitoLabel: string;
+    incognitoDesc: string;
+    chatRetention: string;
+    keepForever: string;
+    days30: string;
+    days60: string;
+    days90: string;
+    whoViewed: string;
+    noViews: string;
+    aWaleefMember: string;
+    view: string;
+  };
+  family: {
+    title: string;
+    sub: string;
+    pending: string;
+    approved: string;
+    totalRequests: string;
+    yourRequests: string;
+    noGuardianYet: string;
+    requestedOn: string;
+    approvedStatus: string;
+    declinedStatus: string;
+    pendingStatus: string;
+    relationFather: string;
+    relationBrother: string;
+    relationUncle: string;
+    relationGrandfather: string;
+    relationOther: string;
+  };
+  proposal: {
+    chooseApproach: string;
+    howProceed: string;
+    approachSelf: string;
+    approachSelfDesc: string;
+    approachWali: string;
+    approachWaliDesc: string;
+    approachMediator: string;
+    approachMediatorDesc: string;
+    waliInfoTitle: string;
+    provideDetails: string;
+    fullName: string;
+    relation: string;
+    selectRelation: string;
+    phoneNumber: string;
+    emailAddress: string;
+    requestSubmitted: string;
+    sentByEmail: string;
+    whatNext: string;
+    nextStep1: string;
+    nextStep2: string;
+    nextStep3: string;
+    submitRequest: string;
+    submitting: string;
+  };
+  coach: {
+    title: string;
+    sub: string;
+    quickTopics: string;
+    communication: string;
+    familyInvolvement: string;
+    firstMeeting: string;
+    thinking: string;
+    suggestedQuestions: string;
+    inputPlaceholder: string;
+  };
+  photos: {
+    title: string;
+    sub: string;
+    requestsToView: string;
+    someoneWantsView: string;
+    decline: string;
+    approve: string;
+    yourPhotos: string;
+    main: string;
+    visibility: string;
+    uploadPhoto: string;
+    uploading: string;
+  };
+  subscription: {
+    choosePlan: string;
+    findPartner: string;
+    invest: string;
+    secure: string;
+    islamicValues: string;
+    cancelAnytime: string;
+    mostPopular: string;
+    currentPlan: string;
+    commitmentTitle: string;
+    commitmentBody: string;
+  };
+  verificationScreen: {
+    title: string;
+    sub: string;
+    idTier: string;
+    photoTier: string;
+    notSubmitted: string;
+    uploadDocument: string;
+    uploadSelfie: string;
+    submitting: string;
+    approved: string;
+    rejected: string;
+    changesRequested: string;
+    underReview: string;
+    noteFromTeam: string;
+    documentType: string;
+    nationalId: string;
+    passport: string;
+    driverLicense: string;
+  };
+  notificationsScreen: {
+    title: string;
+    markAllRead: string;
+    empty: string;
+  };
+  matchResult: {
+    title: string;
+    sub: string;
+    strongPoints: string;
+    pointsToDiscuss: string;
+    involveFamily: string;
+    startConversation: string;
+    footnote: string;
+  };
+  questionnaireScreen: {
+    continue: string;
+    back: string;
+    finish: string;
+    skipContinue: string;
+    noQuestions: string;
+    lockedTitle: string;
+    lockedBody: string;
+    answerHonestly: string;
+    optionalHint: string;
+  };
+  profileCreationScreen: {
+    tellUsAboutYourself: string;
+    letsStart: string;
+    fullNameLabel: string;
+    phoneLabel: string;
+    displayNameLabel: string;
+    displayNamePlaceholder: string;
+    completeProfile: string;
+    saving: string;
+    yourPreferences: string;
+    whatLookingFor: string;
+    interestsHobbies: string;
+    describeIdealMatch: string;
+  };
+  waliReview: {
+    heading: string;
+    assalamu: string;
+    requestedInvolvement: string;
+    decline: string;
+    approve: string;
+    approvedMsg: string;
+    declinedMsg: string;
+  };
+  waliLogin: {
+    heading: string;
+    emailPrompt: string;
+    emailLabel: string;
+    sendCode: string;
+    sending: string;
+    codePrompt: string;
+    codeLabel: string;
+    viewRequests: string;
+    checking: string;
+    noRequests: string;
+    review: string;
+    viewChat: string;
+    invalidCode: string;
+  };
+  chatScreen: {
+    options: string;
+    reportUser: string;
+    blockUser: string;
+    blocking: string;
+    deleteConversation: string;
+    reportTitle: string;
+    whatHappened: string;
+    submitReport: string;
+    submitting: string;
+    freezeMatch: string;
+    reactivateMatch: string;
+    rateMatch: string;
+    thanksFeedback: string;
+    feedbackPlaceholder: string;
+    submitRating: string;
+    respectfulTitle: string;
+    respectfulDesc: string;
+    noWaliInvite: string;
+    involveWali: string;
+    waliCanReview: string;
+    online: string;
+    typeMessage: string;
+  };
+  profileView: {
+    professionalBackground: string;
+    education: string;
+    occupation: string;
+    faithValues: string;
+    prayer: string;
+    hijab: string;
+    lookingForTitle: string;
+    compatibilityBreakdown: string;
+    involveFamily: string;
+    expressInterest: string;
+    requestOptional: string;
+    requestSent: string;
+  };
+};
