@@ -8,9 +8,10 @@ export const metadata: Metadata = {
   title: "Waleef — Find Your Life Partner",
   description:
     "Waleef connects you with compatible Muslims seeking marriage. Built on Islamic values, privacy, and family involvement.",
-  icons: {
-    icon: "/images/logo.png",
-  },
+  // No `icons` entry here on purpose: app/icon.png uses Next's file
+  // convention, which emits the <link rel="icon"> tag automatically (with a
+  // content hash for cache-busting). Declaring it manually as well would
+  // render a duplicate, competing tag.
 };
 
 export default async function RootLayout({
