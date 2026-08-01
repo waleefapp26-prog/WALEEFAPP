@@ -19,11 +19,12 @@ import { MatchProfileCard } from "./MatchProfileCard";
 import { QuickActions } from "./QuickActions";
 
 type Props = {
+  isAdmin?: boolean;
   initialCandidates: Profile[];
   currentUserId: string;
 };
 
-export function DashboardScreen({ initialCandidates, currentUserId }: Props) {
+export function DashboardScreen({ initialCandidates, currentUserId, isAdmin = false }: Props) {
   const router = useRouter();
   const supabase = createClient();
   const { dictionary } = useTranslation();
@@ -110,7 +111,7 @@ export function DashboardScreen({ initialCandidates, currentUserId }: Props) {
         <p className={styles.sub}>{loadingCandidates ? dictionary.deck.loadingMatches : dictionary.deck.todaysMatches}</p>
         {/* Was four stacked underlined links; same destinations, but as
             scannable icon chips instead of a wall of sentences. */}
-        <QuickActions />
+        <QuickActions isAdmin={isAdmin} />
       </header>
 
       <FilterPanel

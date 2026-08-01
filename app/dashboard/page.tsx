@@ -18,5 +18,15 @@ export default async function DashboardPage() {
 
   const candidates = await getCandidateProfiles(supabase);
 
-  return <DashboardScreen initialCandidates={candidates} currentUserId={user.id} />;
+  // Drives the admin-only "Review queue" chip. Without an entry point the
+  // moderation screens were unreachable unless you typed /admin by hand.
+  const { data: me } = await supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle();
+
+  return (
+    <DashboardScreen
+      initialCandidates={candidates}
+      currentUserId={user.id}
+      isAdmin={Boolean(me?.is_admin)}
+    />
+  );
 }

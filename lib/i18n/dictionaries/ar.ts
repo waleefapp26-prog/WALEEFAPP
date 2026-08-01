@@ -228,6 +228,7 @@ export const ar: Dictionary = {
     photos: "صوري",
     verify: "التوثيق",
     privacy: "الخصوصية",
+    admin: "قائمة المراجعة",
   },
   filterPanel: {
     title: "تصفية التطابقات",
@@ -321,6 +322,9 @@ export const ar: Dictionary = {
     thinking: "جارٍ التفكير...",
     suggestedQuestions: "أسئلة مقترحة:",
     inputPlaceholder: "اسألني أي شيء عن رحلة زواجك...",
+    lockedTitle: "المرشد ضمن الاشتراك المميز",
+    lockedBody: "احصل على إرشاد غير محدود حول بدء المحادثات، وإشراك وليّك، وما يجب الانتباه له — إلى جانب كل مزايا الاشتراك المميز.",
+    lockedCta: "اطّلع على الخطط",
   },
   photos: {
     title: "الصور",

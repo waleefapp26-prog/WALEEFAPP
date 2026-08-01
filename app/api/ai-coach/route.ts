@@ -26,12 +26,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const { messages } = (await request.json()) as { messages: IncomingMessage[] };
+  const { messages, locale } = (await request.json()) as {
+    messages: IncomingMessage[];
+    locale?: "en" | "ar";
+  };
   if (!Array.isArray(messages) || messages.length === 0) {
     return NextResponse.json({ error: "No messages provided" }, { status: 400 });
   }
 
-  const reply = await activeCoachProvider.reply(messages);
+  const reply = await activeCoachProvider.reply(messages, locale === "ar" ? "ar" : "en");
 
   // Small delay so the "Thinking..." state in the UI feels natural.
   await new Promise((resolve) => setTimeout(resolve, 500));

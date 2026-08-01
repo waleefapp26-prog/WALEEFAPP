@@ -55,6 +55,10 @@
   background: linear-gradient(135deg, var(--waleef-gold-light), var(--waleef-gold));
 }
 
+.toneAdmin {
+  background: linear-gradient(135deg, #4f46e5, #7c76ef);
+}
+
 .toneSlate {
   background: linear-gradient(135deg, #6b7280, #9ca3af);
 }

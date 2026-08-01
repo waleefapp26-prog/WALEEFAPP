@@ -126,6 +126,7 @@ export type Dictionary = {
     photos: string;
     verify: string;
     privacy: string;
+    admin: string;
   };
   filterPanel: {
     title: string;
@@ -219,6 +220,9 @@ export type Dictionary = {
     thinking: string;
     suggestedQuestions: string;
     inputPlaceholder: string;
+    lockedTitle: string;
+    lockedBody: string;
+    lockedCta: string;
   };
   photos: {
     title: string;

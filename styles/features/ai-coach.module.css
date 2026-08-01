@@ -8,9 +8,10 @@
 }
 
 .hero {
-  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
-  padding: 2rem 1.5rem;
+  background: var(--waleef-gradient-h);
+  padding: 1.1rem 1.5rem;
   color: #fff;
+  flex-shrink: 0;
 }
 
 .heroInner {
@@ -25,8 +26,9 @@
 }
 
 .heroIcon {
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
   border-radius: 9999px;
   background: rgb(255 255 255 / 0.2);
   display: flex;
@@ -36,19 +38,21 @@
 
 .heroTitle {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.25;
 }
 
 .heroSub {
-  margin: 0.25rem 0 0;
-  font-size: 0.875rem;
+  margin: 0.1rem 0 0;
+  font-size: 0.8125rem;
   color: rgb(255 255 255 / 0.85);
 }
 
 .topics {
   background: var(--waleef-white);
   border-bottom: 1px solid #e5e7eb;
-  padding: 1rem 1.5rem;
+  padding: 0.7rem 1.25rem;
+  flex-shrink: 0;
 }
 
 .topicsInner {
@@ -64,9 +68,8 @@
 
 .chipRow {
   display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
 .chip {
@@ -145,7 +148,7 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  margin-right: 0.75rem;
+  margin-inline-end: 0.75rem;
   flex-shrink: 0;
 }
 
@@ -190,28 +193,30 @@
 }
 
 .suggGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-@media (max-width: 480px) {
-  .suggGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .suggCard {
-  padding: 0.75rem;
-  font-size: 0.875rem;
-  color: var(--waleef-text-secondary);
+  padding: 0.5rem 0.9rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--waleef-text);
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: border-color 0.15s ease;
+  border: 1px solid var(--border-gray-200);
+  border-radius: 9999px;
+  background: var(--waleef-white);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .suggCard:hover {
-  border-color: #ff6b9d;
+  transform: translateY(-1px);
+  border-color: var(--waleef-pink);
+  box-shadow: 0 6px 14px rgba(255, 107, 157, 0.16);
 }
 
 .footer {
@@ -257,4 +262,44 @@
 
 .send:active {
   transform: scale(0.96);
+}
+
+/* Premium gate shown in place of the composer for free-tier users. */
+.locked {
+  background: var(--waleef-white);
+  border-top: 1px solid var(--border-gray-200);
+  padding: 1rem 1.5rem;
+  flex-shrink: 0;
+}
+
+.lockedInner {
+  max-width: 42rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.lockedIcon {
+  color: var(--waleef-gold);
+  flex-shrink: 0;
+}
+
+.lockedText {
+  flex: 1;
+  min-width: 12rem;
+}
+
+.lockedTitle {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.lockedBody {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--waleef-text-secondary);
+  line-height: 1.5;
 }

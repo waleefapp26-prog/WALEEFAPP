@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Heart, MessageCircle, Send, Sparkles, Users } from "lucide-react";
+import { Heart, Lock, MessageCircle, Send, Sparkles, Users } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { AI_COACH_INITIAL_MESSAGES, AI_COACH_SUGGESTIONS } from "@/lib/content/ai-coach";
+import { coachGreeting, coachSuggestions } from "@/lib/content/ai-coach";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import styles from "@/styles/features/ai-coach.module.css";
 
@@ -40,9 +41,15 @@ const QUICK_TOPICS = [
   },
 ] as const;
 
-export function AICoachScreen() {
-  const { dictionary } = useTranslation();
-  const [messages, setMessages] = useState<Msg[]>(() => [...AI_COACH_INITIAL_MESSAGES]);
+type Props = {
+  /** Free-tier users get an upsell instead of a composer they cannot use. */
+  isPremium?: boolean;
+};
+
+export function AICoachScreen({ isPremium = false }: Props) {
+  const { dictionary, locale } = useTranslation();
+  // Greeting only -- the old seed included a fabricated user turn.
+  const [messages, setMessages] = useState<Msg[]>(() => [coachGreeting(locale)]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
@@ -68,22 +75,23 @@ export function AICoachScreen() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: updated.map((m) => ({ role: m.sender === "user" ? "user" : "assistant", content: m.text })),
+          locale,
         }),
       });
       const data = await response.json();
       if (!response.ok) {
-        setError(data.error ?? "Something went wrong. Please try again.");
+        setError(data.error ?? dictionary.auth.genericError);
         return;
       }
       setMessages((prev) => [...prev, { id: nextId(prev), sender: "ai", text: data.reply }]);
     } catch {
-      setError("Something went wrong reaching the server. Please try again.");
+      setError(dictionary.auth.genericError);
     } finally {
       setLoading(false);
     }
   };
 
-  const showSuggestions = messages.length <= 3;
+  const showSuggestions = isPremium && messages.filter((m) => m.sender === "user").length === 0;
 
   return (
     <div className={styles.page}>
@@ -158,9 +166,9 @@ export function AICoachScreen() {
           <div className={styles.suggestionsInner}>
             <p className={styles.suggLabel}>{dictionary.coach.suggestedQuestions}</p>
             <div className={styles.suggGrid}>
-              {AI_COACH_SUGGESTIONS.map((s) => (
-                <Card key={s} onClick={() => setInput(s)} className={styles.suggCard}>
-                  {s}
+              {coachSuggestions(locale).map((s) => (
+                <Card key={s.label} onClick={() => void send(s.prompt)} className={styles.suggCard}>
+                  {s.label}
                 </Card>
               ))}
             </div>
@@ -168,25 +176,39 @@ export function AICoachScreen() {
         </div>
       ) : null}
 
-      <div className={styles.footer}>
-        <div className={styles.footerInner}>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") void send();
-            }}
-            placeholder={dictionary.coach.inputPlaceholder}
-            className={styles.input}
-            aria-label={dictionary.coach.inputPlaceholder}
-            disabled={loading}
-          />
-          <button type="button" className={styles.send} onClick={() => void send()} aria-label="Send" disabled={loading}>
-            <Send size={20} />
-          </button>
+      {isPremium ? (
+        <div className={styles.footer}>
+          <div className={styles.footerInner}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") void send();
+              }}
+              placeholder={dictionary.coach.inputPlaceholder}
+              className={styles.input}
+              aria-label={dictionary.coach.inputPlaceholder}
+              disabled={loading}
+            />
+            <button type="button" className={styles.send} onClick={() => void send()} aria-label="Send" disabled={loading}>
+              <Send size={20} />
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        /* Stated up front rather than after the user types and gets a 403. */
+        <div className={styles.locked}>
+          <div className={styles.lockedInner}>
+            <Lock size={22} className={styles.lockedIcon} aria-hidden />
+            <div className={styles.lockedText}>
+              <p className={styles.lockedTitle}>{dictionary.coach.lockedTitle}</p>
+              <p className={styles.lockedBody}>{dictionary.coach.lockedBody}</p>
+            </div>
+            <Button href="/dashboard/premium">{dictionary.coach.lockedCta}</Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

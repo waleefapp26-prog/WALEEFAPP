@@ -233,6 +233,7 @@ export const en: Dictionary = {
     photos: "My photos",
     verify: "Get verified",
     privacy: "Privacy",
+    admin: "Review queue",
   },
   filterPanel: {
     title: "Filter Matches",
@@ -326,6 +327,9 @@ export const en: Dictionary = {
     thinking: "Thinking...",
     suggestedQuestions: "Suggested questions:",
     inputPlaceholder: "Ask me anything about your marriage journey...",
+    lockedTitle: "The coach is part of Premium",
+    lockedBody: "Get unlimited guidance on starting conversations, involving your wali, and what to watch for -- alongside everything else in Premium.",
+    lockedCta: "See plans",
   },
   photos: {
     title: "Photos",
