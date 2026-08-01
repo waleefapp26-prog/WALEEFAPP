@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 import { DASHBOARD_NAV_ITEMS } from "@/lib/config/dashboard";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
@@ -15,6 +16,13 @@ export function DashboardNav() {
   return (
     <div className={navStyles.dockWrap}>
       <nav className={navStyles.dock} aria-label="Dashboard">
+        {/* Brand sits at the top of the side rail and goes home. Hidden on
+            mobile, where the bottom bar has no vertical room and the top bar
+            carries the brand instead. */}
+        <Link href="/dashboard" className={navStyles.dockBrand} aria-label="Waleef">
+          <Logo variant="footer" />
+        </Link>
+
         {DASHBOARD_NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href;

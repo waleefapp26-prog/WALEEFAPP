@@ -107,6 +107,7 @@ export type Dictionary = {
     aiCoach: string;
     family: string;
     premium: string;
+    profile: string;
   };
   deck: {
     loadingMatches: string;
@@ -119,6 +120,25 @@ export type Dictionary = {
     checkBackTomorrow: string;
     seeWhyStrongMatch: string;
     filterMatches: string;
+  };
+  myProfile: {
+    title: string;
+    subtitle: string;
+    editBasics: string;
+    save: string;
+    saving: string;
+    saved: string;
+    displayName: string;
+    bio: string;
+    bioPlaceholder: string;
+    lookingFor: string;
+    about: string;
+    notSet: string;
+    idVerified: string;
+    photoVerified: string;
+    notVerified: string;
+    plan: string;
+    manage: string;
   };
   quickActions: {
     title: string;

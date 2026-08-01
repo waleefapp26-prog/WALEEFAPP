@@ -347,3 +347,9 @@
     margin-inline: auto;
   }
 }
+
+.pageTitle {
+  margin: 0;
+  font-size: 1.75rem;
+  line-height: 1.15;
+}

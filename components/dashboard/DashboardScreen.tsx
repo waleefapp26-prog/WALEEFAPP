@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui";
-import { Logo } from "@/components/ui/Logo";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
 import { computePlaceholderScore } from "@/lib/matching/placeholderScore";
@@ -98,7 +97,9 @@ export function DashboardScreen({ initialCandidates, currentUserId, isAdmin = fa
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerRow}>
-          <Logo variant="dashboard" as="h1" />
+          {/* Brand now lives in the top bar / side rail, so the deck heading
+              is the page title rather than a second copy of the logo. */}
+          <h1 className={styles.pageTitle}>{dictionary.dashboardNav.matches}</h1>
           <button
             type="button"
             className={styles.filterBtn}

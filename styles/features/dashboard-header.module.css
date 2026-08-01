@@ -1,13 +1,33 @@
 .header {
   display: flex;
-  justify-content: flex-end;
-  padding: 1rem 1.5rem 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-gray-200);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 @media (min-width: 1024px) {
-  /* Keeps the notification bell clear of the side rail. */
+  /* The side rail already carries the brand, so the bar just holds the bell,
+     inset so it clears the rail. */
   .header {
+    justify-content: flex-end;
     padding-inline-start: calc(var(--sidebar-width) + 1.5rem);
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom: none;
+  }
+
+  .brand {
+    display: none;
   }
 }
 
