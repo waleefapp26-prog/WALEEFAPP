@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { SlidersHorizontal, Star } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
+import { Button } from "@/components/ui";
 import { Logo } from "@/components/ui/Logo";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
@@ -129,11 +131,25 @@ export function DashboardScreen({ initialCandidates, currentUserId }: Props) {
             </Link>
           </div>
         ) : (
+          /* The empty state is what most users see most days, so it gets a
+             designed card rather than an icon floating in a void. */
           <div className={styles.empty}>
-            <div className={styles.emptyInner}>
-              <Star size={64} className={styles.emptyIcon} aria-hidden />
-              <h3 className={styles.name}>{dictionary.deck.noMoreMatches}</h3>
-              <p className={styles.sub}>{dictionary.deck.checkBackTomorrow}</p>
+            <div className={styles.emptyGlow} aria-hidden />
+            <Image
+              src="/images/logo.png"
+              alt=""
+              width={96}
+              height={96}
+              className={styles.emptyMark}
+            />
+            <h3 className={styles.emptyTitle}>{dictionary.deck.noMoreMatches}</h3>
+            <p className={styles.emptyBody}>{dictionary.deck.checkBackTomorrow}</p>
+            <div className={styles.emptyActions}>
+              <Button variant="outline" onClick={() => setFiltersOpen(true)}>
+                <SlidersHorizontal size={16} aria-hidden />
+                {dictionary.deck.filterMatches}
+              </Button>
+              <Button href="/dashboard/questionnaire">{dictionary.quickActions.quiz}</Button>
             </div>
           </div>
         )}

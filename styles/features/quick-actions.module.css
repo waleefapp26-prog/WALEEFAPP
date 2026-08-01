@@ -1,22 +1,15 @@
-/* Horizontally scrollable on phones, wraps into a grid once there's room. */
+/* Two-up on phones, four-up once there is room. */
 .row {
-  display: flex;
-  gap: 0.65rem;
+  /* Grid rather than a scroller: all four actions are visible at once on a
+     phone instead of two-and-a-half clipping off the right edge. */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
   max-width: 28rem;
   margin: 1.25rem auto 0;
-  padding: 0.25rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  scroll-snap-type: x proximity;
-}
-
-.row::-webkit-scrollbar {
-  display: none;
 }
 
 .card {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -69,13 +62,18 @@
 .label {
   font-size: 0.8125rem;
   font-weight: 500;
-  white-space: nowrap;
+  line-height: 1.25;
+  min-width: 0;
 }
 
 @media (min-width: 640px) {
   .row {
-    flex-wrap: wrap;
-    justify-content: center;
-    overflow-x: visible;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .row {
+    max-width: 34rem;
   }
 }

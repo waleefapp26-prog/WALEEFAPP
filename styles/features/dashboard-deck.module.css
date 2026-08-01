@@ -193,21 +193,11 @@
   color: var(--waleef-text-secondary);
 }
 
-.empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
 
-.emptyInner {
-  text-align: center;
-}
 
-.emptyIcon {
-  color: var(--waleef-gold);
-  margin: 0 auto 1rem;
-}
+
+
+
 
 .matchInsight {
   max-width: 28rem;
@@ -281,4 +271,79 @@
 .likeIcon {
   color: var(--waleef-white);
   fill: var(--waleef-white);
+}
+
+/* Designed empty state -- this is what most users see most days, so it gets
+ * a real card instead of an icon adrift in whitespace. */
+.empty {
+  position: relative;
+  overflow: hidden;
+  max-width: 28rem;
+  margin: 0 auto;
+  padding: 2.75rem 1.75rem 2.25rem;
+  text-align: center;
+  border-radius: var(--radius-2xl);
+  background: var(--waleef-white);
+  border: 1px solid var(--border-gray-200);
+  box-shadow: var(--shadow-card);
+}
+
+/* Soft brand wash behind the mark so the card doesn't read as a plain box. */
+.emptyGlow {
+  position: absolute;
+  top: -45%;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  width: 22rem;
+  height: 22rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.16), rgba(255, 138, 92, 0.06) 55%, transparent 72%);
+  pointer-events: none;
+}
+
+.emptyMark {
+  position: relative;
+  margin: 0 auto 1.1rem;
+  border-radius: 20px;
+}
+
+.emptyTitle {
+  position: relative;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.emptyBody {
+  position: relative;
+  color: var(--waleef-text-secondary);
+  line-height: 1.6;
+  margin: 0 auto 1.5rem;
+  max-width: 22rem;
+}
+
+.emptyActions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+}
+
+/* On a laptop a 28rem column marooned in ~1200px of space reads as empty.
+ * Give the deck more presence without stretching it to full width, which
+ * would make the swipe card unwieldy. */
+@media (min-width: 1024px) {
+  .header,
+  .empty {
+    max-width: 34rem;
+  }
+
+  .empty {
+    padding: 3.5rem 2.5rem 3rem;
+  }
+
+  .stack {
+    max-width: 34rem;
+    margin-inline: auto;
+  }
 }
