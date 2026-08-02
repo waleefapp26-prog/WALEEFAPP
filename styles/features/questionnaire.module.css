@@ -58,3 +58,37 @@
 .btnFlex {
   flex: 1;
 }
+
+/* Incoming "please answer the optional questions" asks. */
+.requestCard {
+  margin-bottom: 1.25rem;
+}
+
+.requestTitle {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.requestRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.requestRow + .requestRow {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-gray-200);
+}
+
+.requestName {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--waleef-text-secondary);
+}
+
+.requestActions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}

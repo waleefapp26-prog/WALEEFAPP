@@ -353,3 +353,13 @@
   font-size: 1.75rem;
   line-height: 1.15;
 }
+
+/* Real photo replacing the initial in the card's photo panel. */
+.photoImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}

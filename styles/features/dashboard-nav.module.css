@@ -48,6 +48,35 @@
   font-weight: 600;
 }
 
+/* Icon slot on each nav item: anchors the per-destination unread badge. */
+.dockIcon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dockBadge {
+  position: absolute;
+  top: -0.4rem;
+  inset-inline-end: -0.45rem;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding: 0 0.25rem;
+  border-radius: 9999px;
+  background: var(--waleef-pink);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Reads as a badge rather than part of the icon on both bar backgrounds. */
+  box-shadow: 0 0 0 2px var(--waleef-white);
+}
+
 /* ---------------------------------------------------------------------------
    Mobile / tablet: bottom bar
    --------------------------------------------------------------------------- */
@@ -89,11 +118,18 @@
     min-width: 0;
   }
 
-  .dockItem span {
+  /* Label only. Scoped to the last child so it doesn't also apply to
+     .dockIcon, whose `overflow: hidden` would clip the badge hanging off its
+     top corner. */
+  .dockItem > span:last-child {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .dockFooter {
+    display: contents;
   }
 
   .dockLangToggle {
@@ -104,6 +140,13 @@
   }
 
   .dockLangToggle span {
+    display: none;
+  }
+
+  /* No room for a seventh control next to six destinations at 375px --
+     mobile users sign out from the profile screen instead. */
+  .dockBell,
+  .dockSignOut {
     display: none;
   }
 }
@@ -145,11 +188,52 @@
     font-size: 0.9375rem;
   }
 
-  .dockLangToggle {
+  /* Notifications / language / sign-out, pinned to the foot of the rail and
+     separated from the destinations above by a rule. */
+  .dockFooter {
     margin-top: auto;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border-gray-200);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .dockBell,
+  .dockSignOut,
+  .dockLangToggle {
+    display: flex;
+    align-items: center;
     justify-content: flex-start;
     gap: 0.75rem;
+    width: 100%;
     padding: 0.75rem 1rem;
+    border: none;
     border-radius: 12px;
+    background: transparent;
+    color: var(--waleef-text-secondary);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .dockBell:hover,
+  .dockLangToggle:hover {
+    background: var(--waleef-beige);
+  }
+
+  .dockSignOut:hover {
+    background: rgba(217, 54, 74, 0.08);
+    color: #d9364a;
+  }
+
+  .dockSignOut:disabled {
+    opacity: 0.6;
+    cursor: default;
   }
 }

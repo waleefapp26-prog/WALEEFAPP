@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MoreVertical, Send, Shield, Star, Users } from "lucide-react";
 import { setMatchStatus, submitMatchRating, toggleChatInvolvement } from "@/app/dashboard/chat/actions";
-import { Button, Modal, Textarea } from "@/components/ui";
+import { Button, MemberAvatar, Modal, Textarea } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
 import type { ChatMessage } from "@/lib/queries/conversations";
@@ -61,8 +61,15 @@ export function ChatScreen({
   const [menuOpen, setMenuOpen] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
   const [reportReason, setReportReason] = useState("");
+  const [reportSent, setReportSent] = useState(false);
   const [safetyPending, setSafetyPending] = useState(false);
   const [safetyError, setSafetyError] = useState<string>();
+  const [statusPending, setStatusPending] = useState(false);
+  const [statusError, setStatusError] = useState<string>();
+  const [ratingError, setRatingError] = useState<string>();
+  // Block and delete are irreversible, so each gets its own confirm step
+  // rather than firing straight off the options list.
+  const [confirm, setConfirm] = useState<"block" | "delete" | null>(null);
 
   useEffect(() => {
     const channel = supabase
@@ -151,6 +158,20 @@ export function ChatScreen({
     }
   };
 
+  const handleToggleStatus = async () => {
+    const next = matchStatus === "active" ? "frozen" : "active";
+    setStatusPending(true);
+    setStatusError(undefined);
+    const result = await setMatchStatus(matchId, next);
+    setStatusPending(false);
+    if (result.success) {
+      setMatchStatusState(next);
+      setMenuOpen(false);
+    } else {
+      setStatusError(result.error);
+    }
+  };
+
   const handleReport = async () => {
     const reason = reportReason.trim();
     if (!reason) return;
@@ -164,8 +185,8 @@ export function ChatScreen({
         setSafetyError(error.message);
         return;
       }
-      setReportOpen(false);
       setReportReason("");
+      setReportSent(true);
     } catch {
       setSafetyError(dictionary.auth.genericError);
     } finally {
@@ -178,7 +199,12 @@ export function ChatScreen({
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.peer}>
-            <div className={styles.avatar}>{otherParticipantName[0] ?? "?"}</div>
+            <MemberAvatar
+              userId={otherUserId}
+              fallback={otherParticipantName}
+              className={styles.avatar}
+              imgClassName={styles.avatarImg}
+            />
             <div>
               <h3 className={styles.peerName}>{otherParticipantName}</h3>
               <div className={styles.statusRow}>
@@ -198,6 +224,12 @@ export function ChatScreen({
         </div>
       </header>
 
+      {/* Freezing had no visible effect outside the options list, so a frozen
+          match looked identical to an active one. */}
+      {matchStatus === "frozen" ? (
+        <p className={styles.statusNotice}>{dictionary.chatScreen.frozenNotice}</p>
+      ) : null}
+
       <Modal open={menuOpen} onClose={() => setMenuOpen(false)} title={dictionary.chatScreen.options}>
         <Button
           type="button"
@@ -205,6 +237,8 @@ export function ChatScreen({
           wide
           onClick={() => {
             setMenuOpen(false);
+            setSafetyError(undefined);
+            setReportSent(false);
             setReportOpen(true);
           }}
         >
@@ -215,13 +249,28 @@ export function ChatScreen({
           type="button"
           variant="secondary"
           wide
-          onClick={async () => {
-            const next = matchStatus === "active" ? "frozen" : "active";
-            const result = await setMatchStatus(matchId, next);
-            if (result.success) setMatchStatusState(next);
+          disabled={statusPending}
+          onClick={() => void handleToggleStatus()}
+        >
+          {statusPending
+            ? dictionary.chatScreen.updating
+            : matchStatus === "active"
+              ? dictionary.chatScreen.freezeMatch
+              : dictionary.chatScreen.reactivateMatch}
+        </Button>
+        {statusError ? <p className={styles.actionError}>{statusError}</p> : null}
+        <div style={{ height: "0.75rem" }} />
+        <Button
+          type="button"
+          variant="secondary"
+          wide
+          onClick={() => {
+            setMenuOpen(false);
+            setRatingError(undefined);
+            setRatingOpen(true);
           }}
         >
-          {matchStatus === "active" ? dictionary.chatScreen.freezeMatch : dictionary.chatScreen.reactivateMatch}
+          {dictionary.chatScreen.rateMatch}
         </Button>
         <div style={{ height: "0.75rem" }} />
         <Button
@@ -230,38 +279,83 @@ export function ChatScreen({
           wide
           onClick={() => {
             setMenuOpen(false);
-            setRatingOpen(true);
+            setSafetyError(undefined);
+            setConfirm("block");
           }}
         >
-          {dictionary.chatScreen.rateMatch}
+          {dictionary.chatScreen.blockUser}
         </Button>
         <div style={{ height: "0.75rem" }} />
-        <Button type="button" variant="secondary" wide disabled={safetyPending} onClick={() => void handleBlock()}>
-          {safetyPending ? dictionary.chatScreen.blocking : dictionary.chatScreen.blockUser}
-        </Button>
-        <div style={{ height: "0.75rem" }} />
-        <Button type="button" variant="secondary" wide disabled={safetyPending} onClick={() => void handleDeleteConversation()}>
+        <Button
+          type="button"
+          variant="secondary"
+          wide
+          onClick={() => {
+            setMenuOpen(false);
+            setSafetyError(undefined);
+            setConfirm("delete");
+          }}
+        >
           {dictionary.chatScreen.deleteConversation}
         </Button>
       </Modal>
 
-      <Modal open={reportOpen} onClose={() => setReportOpen(false)} title={dictionary.chatScreen.reportTitle}>
-        <Textarea
-          placeholder={dictionary.chatScreen.whatHappened}
-          value={reportReason}
-          onChange={(e) => setReportReason(e.target.value)}
-        />
-        {safetyError ? <p style={{ color: "#d9364a", fontSize: "0.875rem", marginTop: "0.5rem" }}>{safetyError}</p> : null}
-        <div style={{ marginTop: "0.75rem" }}>
+      {/* Confirm step for the two irreversible actions. */}
+      <Modal
+        open={confirm !== null}
+        onClose={() => setConfirm(null)}
+        title={
+          confirm === "delete" ? dictionary.chatScreen.deleteConfirmTitle : dictionary.chatScreen.blockConfirmTitle
+        }
+      >
+        <p className={styles.confirmBody}>
+          {confirm === "delete" ? dictionary.chatScreen.deleteConfirmBody : dictionary.chatScreen.blockConfirmBody}
+        </p>
+        {safetyError ? <p className={styles.actionError}>{safetyError}</p> : null}
+        <div className={styles.confirmActions}>
+          <Button type="button" variant="outline" wide disabled={safetyPending} onClick={() => setConfirm(null)}>
+            {dictionary.common.cancel}
+          </Button>
           <Button
             type="button"
             wide
-            disabled={safetyPending || !reportReason.trim()}
-            onClick={() => void handleReport()}
+            disabled={safetyPending}
+            onClick={() => void (confirm === "delete" ? handleDeleteConversation() : handleBlock())}
           >
-            {safetyPending ? dictionary.chatScreen.submitting : dictionary.chatScreen.submitReport}
+            {safetyPending
+              ? confirm === "delete"
+                ? dictionary.chatScreen.deleting
+                : dictionary.chatScreen.blocking
+              : confirm === "delete"
+                ? dictionary.chatScreen.confirmDelete
+                : dictionary.chatScreen.blockUser}
           </Button>
         </div>
+      </Modal>
+
+      <Modal open={reportOpen} onClose={() => setReportOpen(false)} title={dictionary.chatScreen.reportTitle}>
+        {reportSent ? (
+          <p>{dictionary.chatScreen.reportSent}</p>
+        ) : (
+          <>
+            <Textarea
+              placeholder={dictionary.chatScreen.whatHappened}
+              value={reportReason}
+              onChange={(e) => setReportReason(e.target.value)}
+            />
+            {safetyError ? <p className={styles.actionError}>{safetyError}</p> : null}
+            <div style={{ marginTop: "0.75rem" }}>
+              <Button
+                type="button"
+                wide
+                disabled={safetyPending || !reportReason.trim()}
+                onClick={() => void handleReport()}
+              >
+                {safetyPending ? dictionary.chatScreen.submitting : dictionary.chatScreen.submitReport}
+              </Button>
+            </div>
+          </>
+        )}
       </Modal>
 
       <Modal open={ratingOpen} onClose={() => setRatingOpen(false)} title={dictionary.chatScreen.rateMatch}>
@@ -297,12 +391,15 @@ export function ChatScreen({
                 wide
                 disabled={rating === 0}
                 onClick={async () => {
+                  setRatingError(undefined);
                   const result = await submitMatchRating(matchId, rating, ratingFeedback);
                   if (result.success) setRatingSubmitted(true);
+                  else setRatingError(result.error);
                 }}
               >
                 {dictionary.chatScreen.submitRating}
               </Button>
+              {ratingError ? <p className={styles.actionError}>{ratingError}</p> : null}
             </div>
           </>
         )}

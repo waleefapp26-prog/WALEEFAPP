@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { tallyByNavKey, type NavUnreadCounts } from "@/lib/notifications/navRouting";
 import type { Notification } from "@/lib/types/notification";
 
 type NotificationRow = {
@@ -42,6 +43,21 @@ export async function getUnreadNotificationCount(supabase: SupabaseClient, userI
     .eq("read", false);
   if (error) throw error;
   return count ?? 0;
+}
+
+/** Unread counts broken down by the nav destination each type belongs to, so
+ *  the nav can badge the specific item a notification concerns. */
+export async function getUnreadCountsByNavKey(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<NavUnreadCounts> {
+  const { data, error } = await supabase
+    .from("notifications")
+    .select("type")
+    .eq("user_id", userId)
+    .eq("read", false);
+  if (error) throw error;
+  return tallyByNavKey(((data as { type: Notification["type"] }[] | null) ?? []).map((r) => r.type));
 }
 
 export async function markNotificationRead(supabase: SupabaseClient, id: string): Promise<void> {

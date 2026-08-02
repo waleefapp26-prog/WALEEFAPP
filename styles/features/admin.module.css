@@ -108,3 +108,24 @@
   background: var(--waleef-beige);
   color: var(--waleef-text-secondary);
 }
+
+/* Photo moderation rows. */
+.photoRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.photoThumb {
+  width: 4.5rem;
+  height: 4.5rem;
+  flex-shrink: 0;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--waleef-beige);
+}
+
+.rowActions {
+  margin-inline-start: auto;
+}

@@ -368,3 +368,34 @@ update public.notifications set read = true where read_at is not null and read =
 
 create index if not exists notifications_user_unread_idx
   on public.notifications (user_id, read) where read = false;
+
+-- ---------------------------------------------------------------------------
+-- L. Chat options-menu fixes (applied 2026-08-02)
+--
+-- Exercising the five ChatScreen options against the live database surfaced
+-- one broken action:
+--
+--   "Rate this match" calls .upsert(..., { onConflict: "match_id,rated_by" }),
+--   which PostgREST emits as INSERT ... ON CONFLICT DO UPDATE. Section E gave
+--   match_ratings SELECT and INSERT policies but no UPDATE policy, so RLS
+--   default-denied the conflict branch: the first rating saved, and changing
+--   it afterwards failed with 42501 ("new row violates row-level security
+--   policy (USING expression)"). The UI dropped that error silently, so the
+--   button simply did nothing on a second attempt.
+--
+-- Report / block / freeze-reactivate / delete-conversation were all verified
+-- working, including delete_conversation correctly raising 'not authorized'
+-- for a non-participant.
+-- ---------------------------------------------------------------------------
+
+drop policy if exists "match_ratings_update_own" on public.match_ratings;
+create policy "match_ratings_update_own" on public.match_ratings for update to authenticated
+  using (auth.uid() = rated_by)
+  with check (auth.uid() = rated_by and exists (
+    select 1 from public.matches m where m.id = match_id and (m.user_a = auth.uid() or m.user_b = auth.uid())
+  ));
+
+-- Blocking the same person twice inserted a duplicate row; nothing reads
+-- blocks by identity, but the pair is the natural key and an unblock feature
+-- would need it.
+create unique index if not exists blocks_pair_key on public.blocks (blocker_id, blocked_id);

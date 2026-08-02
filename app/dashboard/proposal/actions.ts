@@ -1,6 +1,6 @@
 "use server";
 
-import { getResendClient } from "@/lib/email/resend";
+import { getResendClient, isResendConfigured } from "@/lib/email/resend";
 import { createClient } from "@/lib/supabase/server";
 
 export type SubmitProposalInput = {
@@ -12,7 +12,13 @@ export type SubmitProposalInput = {
   waliEmail: string;
 };
 
-export type SubmitProposalResult = { success: true } | { success: false; error: string };
+export type SubmitProposalResult =
+  /** `emailSent: false` means the invite was saved but the guardian was NOT
+   *  contacted -- the caller must show `waliUrl` so the member can pass the
+   *  link on themselves. This used to be reported as a plain success, so the
+   *  screen promised an email that had never been sent. */
+  | { success: true; emailSent: boolean; waliUrl?: string }
+  | { success: false; error: string };
 
 export async function submitProposal(input: SubmitProposalInput): Promise<SubmitProposalResult> {
   const supabase = await createClient();
@@ -27,7 +33,7 @@ export async function submitProposal(input: SubmitProposalInput): Promise<Submit
   // "self" means the requester will make the approach themselves -- there is
   // no wali to invite or email, so skip creating a wali_invites row entirely.
   if (input.approach === "self") {
-    return { success: true };
+    return { success: true, emailSent: false };
   }
 
   if (!input.waliName.trim() || !input.waliRelation || !input.waliEmail.trim()) {
@@ -55,6 +61,13 @@ export async function submitProposal(input: SubmitProposalInput): Promise<Submit
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const waliUrl = `${siteUrl}/wali/${data.token}`;
 
+  if (!isResendConfigured()) {
+    // No mail provider at all. The invite is real and the link works; say so
+    // plainly rather than claiming the guardian was emailed.
+    console.warn("RESEND_API_KEY is not set -- wali invite email not sent");
+    return { success: true, emailSent: false, waliUrl };
+  }
+
   try {
     await getResendClient().emails.send({
       from: "Waleef <onboarding@resend.dev>",
@@ -68,10 +81,11 @@ export async function submitProposal(input: SubmitProposalInput): Promise<Submit
       `,
     });
   } catch (err) {
-    // The invite row was created successfully even if the email failed to
-    // send -- don't fail the whole action, just log it for now.
+    // The invite row exists either way, so this isn't a failure of the whole
+    // action -- but the member still needs to know nobody was contacted.
     console.error("Failed to send wali invite email", err);
+    return { success: true, emailSent: false, waliUrl };
   }
 
-  return { success: true };
+  return { success: true, emailSent: true };
 }

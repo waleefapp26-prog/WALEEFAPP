@@ -11,7 +11,9 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: [".next/**", "node_modules/**", "figma/**", "out/**", "next-env.d.ts"],
+    // *.cjs build helpers are legitimately CommonJS, so the TypeScript
+    // import rules don't apply to them.
+    ignores: [".next/**", "node_modules/**", "figma/**", "out/**", "next-env.d.ts", "**/*.cjs"],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];

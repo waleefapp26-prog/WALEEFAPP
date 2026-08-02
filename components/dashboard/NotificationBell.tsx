@@ -1,39 +1,43 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Bell } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
+import { cn } from "@/lib/cn";
+import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import styles from "@/styles/features/dashboard-header.module.css";
+import { useUnreadNotificationCount } from "./NotificationCountProvider";
 
 type Props = {
-  userId: string;
-  initialUnreadCount: number;
+  /** "icon" is the circular button used in the mobile top bar; "rail" is the
+   *  full-width labelled row used in the laptop side rail. */
+  variant?: "icon" | "rail";
+  className?: string;
 };
 
-export function NotificationBell({ userId, initialUnreadCount }: Props) {
-  const supabase = createClient();
-  const [unreadCount, setUnreadCount] = useState(initialUnreadCount);
+export function NotificationBell({ variant = "icon", className }: Props) {
+  const { dictionary } = useTranslation();
+  const unreadCount = useUnreadNotificationCount();
 
-  useEffect(() => {
-    const channel = supabase
-      .channel(`notifications:${userId}`)
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${userId}` },
-        () => setUnreadCount((c) => c + 1),
-      )
-      .subscribe();
+  const label = dictionary.dashboardNav.notifications;
+  const badge =
+    unreadCount > 0 ? <span className={styles.badge}>{unreadCount > 9 ? "9+" : unreadCount}</span> : null;
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [supabase, userId]);
+  if (variant === "rail") {
+    return (
+      <Link href="/dashboard/notifications" className={cn(className)} aria-label={label}>
+        <span className={styles.railIcon}>
+          <Bell size={20} aria-hidden />
+          {badge}
+        </span>
+        <span>{label}</span>
+      </Link>
+    );
+  }
 
   return (
-    <Link href="/dashboard/notifications" className={styles.bellBtn} aria-label="Notifications">
-      <Bell size={20} />
-      {unreadCount > 0 ? <span className={styles.badge}>{unreadCount > 9 ? "9+" : unreadCount}</span> : null}
+    <Link href="/dashboard/notifications" className={cn(styles.bellBtn, className)} aria-label={label}>
+      <Bell size={20} aria-hidden />
+      {badge}
     </Link>
   );
 }

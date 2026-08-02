@@ -3,20 +3,16 @@ import { Logo } from "@/components/ui/Logo";
 import styles from "@/styles/features/dashboard-header.module.css";
 import { NotificationBell } from "./NotificationBell";
 
-type Props = {
-  userId: string;
-  unreadCount: number;
-};
-
-export function DashboardHeader({ userId, unreadCount }: Props) {
+export function DashboardHeader() {
   return (
-    // A real top bar rather than a lone bell floating in an empty strip.
-    // The brand is hidden on laptop, where the side rail already carries it.
+    // Mobile-only top bar. On laptop the side rail carries the brand, the bell
+    // and sign-out, so this whole strip is hidden rather than left as an empty
+    // band above the content.
     <header className={styles.header}>
       <Link href="/dashboard" className={styles.brand} aria-label="Waleef">
         <Logo variant="dashboard" />
       </Link>
-      <NotificationBell userId={userId} initialUnreadCount={unreadCount} />
+      <NotificationBell />
     </header>
   );
 }

@@ -11,6 +11,7 @@ export const en: Dictionary = {
     apply: "Apply",
     reset: "Reset",
     loading: "Loading...",
+    signOut: "Sign out",
   },
   nav: {
     features: "Features",
@@ -215,6 +216,7 @@ export const en: Dictionary = {
     family: "Family",
     premium: "Premium",
     profile: "Profile",
+    notifications: "Notifications",
   },
   deck: {
     loadingMatches: "Loading matches...",
@@ -313,6 +315,11 @@ export const en: Dictionary = {
     relationOther: "Guardian",
   },
   proposal: {
+    emailNotSent:
+      "Your request is saved, but we could not email your guardian. Share the link below with them directly.",
+    shareLinkLabel: "Your guardian's link",
+    copyLink: "Copy link",
+    linkCopied: "Copied",
     chooseApproach: "Choose Your Approach",
     howProceed: "How would you like to proceed with this match?",
     approachSelf: "Myself",
@@ -411,6 +418,14 @@ export const en: Dictionary = {
     footnote: "Remember: Take your time and involve your wali when you're ready",
   },
   questionnaireScreen: {
+    optionalLockedTitle: "Optional questions",
+    optionalLockedBody:
+      "These open up when one of your matches asks you to answer them. Nothing here is required.",
+    requestTitle: "A match would like to know more",
+    requestFrom: "{name} asked you to answer the optional compatibility questions.",
+    requestApprove: "Share my answers",
+    requestDecline: "Not now",
+    aMatch: "A match",
     continue: "Continue",
     back: "Back",
     finish: "Finish",
@@ -446,6 +461,8 @@ export const en: Dictionary = {
     declinedMsg: "You declined this request.",
   },
   waliLogin: {
+    emailUnavailable:
+      "Email is not set up on this site yet, so no code could be sent. Please ask your family member for the direct link to their request.",
     heading: "Guardian Dashboard",
     emailPrompt: "Enter the email address a family member used to invite you, and we'll send you a login code.",
     emailLabel: "Your email",
@@ -483,6 +500,16 @@ export const en: Dictionary = {
     waliCanReview: "Your guardian can now review this conversation",
     online: "Online",
     typeMessage: "Type a message...",
+    reportSent: "Your report has been sent to our review team.",
+    blockConfirmTitle: "Block this member?",
+    blockConfirmBody: "They will no longer be able to message you. You will need to contact support to undo this.",
+    deleteConfirmTitle: "Delete this conversation?",
+    deleteConfirmBody: "Every message is permanently removed for both of you. This cannot be undone.",
+    confirmDelete: "Yes, delete it",
+    deleting: "Deleting...",
+    updating: "Updating...",
+    frozenNotice: "This match is frozen. You can reactivate it at any time.",
+    activeNotice: "This match is active again.",
   },
   profileView: {
     professionalBackground: "Professional Background",

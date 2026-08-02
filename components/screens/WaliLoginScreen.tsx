@@ -27,16 +27,23 @@ export function WaliLoginScreen() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string>();
   const [invites, setInvites] = useState<WaliInviteRow[]>([]);
+  // The code screen is a dead end if the code was never actually emailed, so
+  // say that rather than asking for a code that does not exist.
+  const [codeEmailed, setCodeEmailed] = useState(true);
 
   const requestCode = async () => {
     setPending(true);
     setError(undefined);
     try {
-      await fetch("/api/wali/request-code", {
+      const res = await fetch("/api/wali/request-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+      const data = (await res.json()) as { emailSent?: boolean };
+      // `emailSent` is absent for an address with no invites -- that response
+      // is deliberately indistinguishable, so treat it as sent.
+      setCodeEmailed(data.emailSent !== false);
       setStage("code");
     } catch {
       setError(dictionary.auth.genericError);
@@ -91,9 +98,13 @@ export function WaliLoginScreen() {
 
           {stage === "code" ? (
             <div className={styles.body}>
-              <p>
-                {dictionary.waliLogin.codePrompt} {email}.
-              </p>
+              {codeEmailed ? (
+                <p>
+                  {dictionary.waliLogin.codePrompt} {email}.
+                </p>
+              ) : (
+                <p className={styles.warning}>{dictionary.waliLogin.emailUnavailable}</p>
+              )}
               <TextField
                 label={dictionary.waliLogin.codeLabel}
                 value={code}

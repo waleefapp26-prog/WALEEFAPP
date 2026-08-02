@@ -16,19 +16,21 @@
 }
 
 @media (min-width: 1024px) {
-  /* The side rail already carries the brand, so the bar just holds the bell,
-     inset so it clears the rail. */
+  /* The side rail carries the brand, notifications and sign-out, so the top
+     bar has nothing left to show and is removed entirely rather than left as
+     an empty band above the content. */
   .header {
-    justify-content: flex-end;
-    padding-inline-start: calc(var(--sidebar-width) + 1.5rem);
-    background: transparent;
-    backdrop-filter: none;
-    border-bottom: none;
-  }
-
-  .brand {
     display: none;
   }
+}
+
+/* Icon slot inside the rail's notifications row: exists purely to anchor the
+   unread badge, which is absolutely positioned. */
+.railIcon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bellBtn {
@@ -51,8 +53,8 @@
 
 .badge {
   position: absolute;
-  top: -0.25rem;
-  right: -0.25rem;
+  top: -0.35rem;
+  inset-inline-end: -0.35rem;
   min-width: 1.25rem;
   height: 1.25rem;
   padding: 0 0.25rem;

@@ -1,13 +1,7 @@
 import { NextResponse } from "next/server";
+import { canViewPhoto, type PhotoVisibilityRow } from "@/lib/photos/visibility";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
-
-type PhotoRow = {
-  user_id: string;
-  storage_path: string;
-  visibility: "public" | "matched" | "approved" | "hidden";
-  moderation_status: "pending" | "approved" | "rejected";
-};
 
 export async function GET(request: Request, { params }: { params: Promise<{ photoId: string }> }) {
   const { photoId } = await params;
@@ -29,40 +23,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ phot
   if (!photo) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  const row = photo as PhotoRow;
-  const isOwner = row.user_id === user.id;
 
-  if (!isOwner) {
-    if (row.moderation_status !== "approved") {
-      return NextResponse.json({ error: "Not found" }, { status: 404 });
-    }
-
-    let allowed = false;
-    if (row.visibility === "public") {
-      allowed = true;
-    } else if (row.visibility === "matched") {
-      const [lo, hi] = [user.id, row.user_id].sort();
-      const { data: match } = await service
-        .from("matches")
-        .select("id")
-        .eq("user_a", lo)
-        .eq("user_b", hi)
-        .maybeSingle();
-      allowed = !!match;
-    } else if (row.visibility === "approved") {
-      const { data: accessRequest } = await service
-        .from("photo_access_requests")
-        .select("status")
-        .eq("viewer_id", user.id)
-        .eq("owner_id", row.user_id)
-        .maybeSingle();
-      allowed = accessRequest?.status === "approved";
-    }
-    // visibility === "hidden": allowed stays false, no non-owner can ever see it.
-
-    if (!allowed) {
-      return NextResponse.json({ error: "Not authorized to view this photo" }, { status: 403 });
-    }
+  const row = photo as PhotoVisibilityRow;
+  if (!(await canViewPhoto(service, row, user.id))) {
+    return NextResponse.json({ error: "Not authorized to view this photo" }, { status: 403 });
   }
 
   const { data: signed, error } = await service.storage.from("profile-photos").createSignedUrl(row.storage_path, 60);

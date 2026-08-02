@@ -186,3 +186,34 @@
 .actionBtn {
   flex: 1;
 }
+
+/* Fallback guardian link, shown when the invite email could not be sent. */
+.manualLinkWrap {
+  max-width: 28rem;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem;
+  border: 1px solid var(--border-gray-200);
+  border-radius: var(--radius-2xl);
+  background: var(--waleef-white);
+}
+
+.manualLinkLabel {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.manualLink {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  background: var(--waleef-beige);
+  font-size: 0.8125rem;
+  word-break: break-all;
+  direction: ltr;
+  text-align: start;
+}

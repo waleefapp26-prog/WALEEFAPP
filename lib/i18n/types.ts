@@ -11,6 +11,7 @@ export type Dictionary = {
     apply: string;
     reset: string;
     loading: string;
+    signOut: string;
   };
   nav: {
     features: string;
@@ -108,6 +109,7 @@ export type Dictionary = {
     family: string;
     premium: string;
     profile: string;
+    notifications: string;
   };
   deck: {
     loadingMatches: string;
@@ -206,6 +208,10 @@ export type Dictionary = {
     relationOther: string;
   };
   proposal: {
+    emailNotSent: string;
+    shareLinkLabel: string;
+    copyLink: string;
+    linkCopied: string;
     chooseApproach: string;
     howProceed: string;
     approachSelf: string;
@@ -303,6 +309,13 @@ export type Dictionary = {
     footnote: string;
   };
   questionnaireScreen: {
+    optionalLockedTitle: string;
+    optionalLockedBody: string;
+    requestTitle: string;
+    requestFrom: string;
+    requestApprove: string;
+    requestDecline: string;
+    aMatch: string;
     continue: string;
     back: string;
     finish: string;
@@ -337,6 +350,7 @@ export type Dictionary = {
     declinedMsg: string;
   };
   waliLogin: {
+    emailUnavailable: string;
     heading: string;
     emailPrompt: string;
     emailLabel: string;
@@ -374,6 +388,16 @@ export type Dictionary = {
     waliCanReview: string;
     online: string;
     typeMessage: string;
+    reportSent: string;
+    blockConfirmTitle: string;
+    blockConfirmBody: string;
+    deleteConfirmTitle: string;
+    deleteConfirmBody: string;
+    confirmDelete: string;
+    deleting: string;
+    updating: string;
+    frozenNotice: string;
+    activeNotice: string;
   };
   profileView: {
     professionalBackground: string;

@@ -4,6 +4,13 @@ import { createClient } from "@/lib/supabase/server";
 
 export type RequestOptionalQuestionsResult = { success: true } | { success: false; error: string };
 
+/** Ask a mutual match to answer the optional compatibility questions.
+ *
+ *  This used to insert into public.notifications directly from the caller's
+ *  session, which RLS always denied -- notifications has no INSERT policy,
+ *  every other write reaches it through a security-definer trigger. It also
+ *  never recorded the access grant, so even a "successful" request would have
+ *  unlocked nothing. Both now happen inside request_optional_questions(). */
 export async function requestOptionalQuestions(targetUserId: string): Promise<RequestOptionalQuestionsResult> {
   const supabase = await createClient();
   const {
@@ -11,25 +18,29 @@ export async function requestOptionalQuestions(targetUserId: string): Promise<Re
   } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Your session expired. Please log in again." };
 
-  const { count } = await supabase
-    .from("matches")
-    .select("id", { count: "exact", head: true })
-    .or(`and(user_a.eq.${user.id},user_b.eq.${targetUserId}),and(user_a.eq.${targetUserId},user_b.eq.${user.id})`);
+  const { error } = await supabase.rpc("request_optional_questions", { p_owner_id: targetUserId });
 
-  if (!count) {
-    return { success: false, error: "You can only request this from a mutual match." };
+  if (error) {
+    if (error.message.includes("not matched")) {
+      return { success: false, error: "You can only request this from a mutual match." };
+    }
+    return { success: false, error: error.message };
   }
+  return { success: true };
+}
 
-  const { data: me } = await supabase.from("profiles").select("full_name").eq("id", user.id).single();
+export type RespondToQuestionsRequestResult = { success: true } | { success: false; error: string };
 
-  const { error } = await supabase.from("notifications").insert({
-    user_id: targetUserId,
-    type: "optional_questions_requested",
-    title: "Someone would like to know more about you",
-    body: `${me?.full_name ?? "Your match"} asked if you'd answer a few optional compatibility questions.`,
-    link: "/dashboard/questionnaire",
+/** The owner's answer to such a request. */
+export async function respondToQuestionsRequest(
+  requestId: string,
+  status: "approved" | "declined",
+): Promise<RespondToQuestionsRequestResult> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("respond_to_optional_questions_request", {
+    p_request_id: requestId,
+    p_status: status,
   });
-
   if (error) return { success: false, error: error.message };
   return { success: true };
 }

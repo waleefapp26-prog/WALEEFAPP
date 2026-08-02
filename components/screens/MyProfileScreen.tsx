@@ -3,6 +3,7 @@
 import { BadgeCheck, Camera, Crown, MapPin, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { SignOutButton } from "@/components/dashboard/SignOutButton";
 import { Button, Card, Textarea, TextField } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
@@ -165,6 +166,10 @@ export function MyProfileScreen({ profile }: Props) {
             {dictionary.myProfile.manage}
           </Button>
         </div>
+
+        {/* The rail's sign-out is laptop-only (the mobile bottom bar has no
+            room for a seventh control), so this is the mobile exit. */}
+        <SignOutButton className={styles.signOut} />
       </div>
     </div>
   );

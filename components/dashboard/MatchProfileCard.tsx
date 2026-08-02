@@ -2,6 +2,7 @@ import { BookOpen, Briefcase, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { MatchPercentage } from "@/components/ui/MatchPercentage";
+import { MemberAvatar } from "@/components/ui/MemberAvatar";
 import type { Profile } from "@/lib/types/profile";
 import styles from "@/styles/features/dashboard-deck.module.css";
 
@@ -24,9 +25,13 @@ export function MatchProfileCard({ profile, matchPercentage }: Props) {
           {profile.verified ? <Badge variant="verified" /> : null}
           {profile.premium ? <Badge variant="premium" /> : null}
         </div>
-        <span className={styles.photoLetter} aria-hidden>
-          {displayName?.[0] ?? "?"}
-        </span>
+        <MemberAvatar
+          userId={profile.id}
+          fallback={displayName}
+          alt={displayName ?? ""}
+          className={styles.photoLetter}
+          imgClassName={styles.photoImg}
+        />
       </div>
 
       <div className={styles.body}>

@@ -31,6 +31,10 @@ export function ProposalFlowScreen({ matchId }: Props) {
   const [waliInfo, setWaliInfo] = useState({ name: "", relation: "", phone: "", email: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string>();
+  // Set when the invite was saved but the guardian was not actually emailed.
+  const [manualLink, setManualLink] = useState<string>();
+  const [emailSent, setEmailSent] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = async () => {
     setSubmitting(true);
@@ -48,6 +52,8 @@ export function ProposalFlowScreen({ matchId }: Props) {
         setSubmitError(result.error);
         return;
       }
+      setEmailSent(result.emailSent);
+      setManualLink(result.waliUrl);
       setStep(3);
     } catch {
       setSubmitError(dictionary.auth.genericError);
@@ -168,7 +174,28 @@ export function ProposalFlowScreen({ matchId }: Props) {
           <CheckCircle size={48} aria-hidden />
         </div>
         <h2 className={styles.successTitle}>{dictionary.proposal.requestSubmitted}</h2>
-        <p className={styles.successBody}>{dictionary.proposal.sentByEmail}</p>
+        <p className={styles.successBody}>
+          {emailSent ? dictionary.proposal.sentByEmail : dictionary.proposal.emailNotSent}
+        </p>
+
+        {/* Email isn't configured (or the send failed): the invite is real and
+            this link works, so hand it over instead of leaving the member to
+            assume their guardian was contacted. */}
+        {manualLink ? (
+          <div className={styles.manualLinkWrap}>
+            <p className={styles.manualLinkLabel}>{dictionary.proposal.shareLinkLabel}</p>
+            <code className={styles.manualLink}>{manualLink}</code>
+            <Button
+              variant="outline"
+              size="md"
+              onClick={() => {
+                void navigator.clipboard.writeText(manualLink).then(() => setCopied(true));
+              }}
+            >
+              {copied ? dictionary.proposal.linkCopied : dictionary.proposal.copyLink}
+            </Button>
+          </div>
+        ) : null}
         <div style={{ maxWidth: "28rem", margin: "0 auto" }}>
           <Card variant="info" className={styles.nextCard}>
             <h4 className={styles.nextTitle}>{dictionary.proposal.whatNext}</h4>

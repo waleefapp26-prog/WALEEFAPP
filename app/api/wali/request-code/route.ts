@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getResendClient } from "@/lib/email/resend";
+import { getResendClient, isResendConfigured } from "@/lib/email/resend";
 import { createServiceClient } from "@/lib/supabase/service";
 
 function generateCode(): string {
@@ -32,6 +32,14 @@ export async function POST(request: Request) {
 
   await service.from("wali_login_codes").insert({ wali_email: waliEmail, code, expires_at: expiresAt });
 
+  // A guardian who never receives the code has no other way in, so an
+  // undelivered code has to be reported rather than swallowed -- otherwise the
+  // screen just waits forever on a code that was never sent.
+  if (!isResendConfigured()) {
+    console.warn("RESEND_API_KEY is not set -- wali login code not sent");
+    return NextResponse.json({ success: true, emailSent: false });
+  }
+
   try {
     await getResendClient().emails.send({
       from: "Waleef <onboarding@resend.dev>",
@@ -41,7 +49,8 @@ export async function POST(request: Request) {
     });
   } catch (err) {
     console.error("Failed to send wali login code email", err);
+    return NextResponse.json({ success: true, emailSent: false });
   }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, emailSent: true });
 }

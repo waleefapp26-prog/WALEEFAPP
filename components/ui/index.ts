@@ -8,6 +8,7 @@ export { Input, type InputProps } from "./Input";
 export { Label, type LabelProps } from "./Label";
 export { Logo } from "./Logo";
 export { MatchPercentage } from "./MatchPercentage";
+export { MemberAvatar } from "./MemberAvatar";
 export { Modal, type ModalProps } from "./Modal";
 export { OtpInput, type OtpInputProps } from "./OtpInput";
 export { PhotoImage } from "./PhotoImage";

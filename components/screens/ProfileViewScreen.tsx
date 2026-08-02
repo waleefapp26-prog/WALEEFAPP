@@ -3,7 +3,7 @@
 import { useId, useState } from "react";
 import { BookOpen, Briefcase, MapPin, MessageCircle, Users } from "lucide-react";
 import { requestOptionalQuestions } from "@/app/dashboard/profile/actions";
-import { Badge, Button, Card } from "@/components/ui";
+import { Badge, Button, Card, MemberAvatar } from "@/components/ui";
 import { MatchPercentage } from "@/components/ui/MatchPercentage";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import type { Profile } from "@/lib/types/profile";
@@ -58,9 +58,13 @@ export function ProfileViewScreen({ profile, matchPercentage, compatibility }: P
         <div className={styles.heroMatch}>
           <MatchPercentage percentage={matchPercentage} size="sm" />
         </div>
-        <span className={styles.heroLetter} aria-hidden>
-          {profile.fullName?.[0] ?? "?"}
-        </span>
+        <MemberAvatar
+          userId={profile.id}
+          fallback={profile.pseudonym || profile.fullName}
+          alt={profile.pseudonym || profile.fullName || ""}
+          className={styles.heroLetter}
+          imgClassName={styles.heroImg}
+        />
       </div>
 
       <div className={styles.content}>
