@@ -161,21 +161,24 @@
     bottom: 0;
   }
 
+  /* Tight: the brand is a wayfinding mark, not a hero. The old 1.1rem bottom
+     padding pushed the whole rail down far enough that sign-out crowded the
+     bottom edge. */
   .dockBrand {
     display: flex;
     align-items: center;
-    padding: 0.35rem 0.6rem 1.1rem;
-    margin-bottom: 0.35rem;
+    padding: 0 0.6rem 0.55rem;
+    margin-bottom: 0.5rem;
     border-bottom: 1px solid var(--border-gray-200);
   }
 
   .dock {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.35rem;
+    gap: 0.2rem;
     width: var(--sidebar-width);
     height: 100%;
-    padding: 1.25rem 0.85rem 1.5rem;
+    padding: 0.85rem 0.85rem 1rem;
     border-block: none;
     border-inline-start: none;
     box-shadow: none;
@@ -183,7 +186,7 @@
 
   .dockItem {
     gap: 0.75rem;
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 1rem;
     border-radius: 12px;
     font-size: 0.9375rem;
   }
@@ -207,7 +210,7 @@
     justify-content: flex-start;
     gap: 0.75rem;
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 1rem;
     border: none;
     border-radius: 12px;
     background: transparent;

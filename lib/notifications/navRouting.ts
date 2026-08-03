@@ -22,6 +22,12 @@ export function navKeyForNotification(type: NotificationType): DashboardNavItem[
   return TYPE_TO_NAV[type];
 }
 
+/** Every notification type that belongs to a destination -- used to mark that
+ *  section's notifications read once the member actually opens it. */
+export function typesForNavKey(key: DashboardNavItem["labelKey"]): NotificationType[] {
+  return (Object.keys(TYPE_TO_NAV) as NotificationType[]).filter((type) => TYPE_TO_NAV[type] === key);
+}
+
 export function tallyByNavKey(types: NotificationType[]): NavUnreadCounts {
   const counts: NavUnreadCounts = {};
   for (const type of types) {

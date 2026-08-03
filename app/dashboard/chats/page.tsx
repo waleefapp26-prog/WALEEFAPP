@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { MarkSectionRead } from "@/components/dashboard/MarkSectionRead";
 import { ChatListScreen } from "@/components/screens/ChatListScreen";
 import { getConversationsForUser } from "@/lib/queries/conversations";
 import { createClient } from "@/lib/supabase/server";
@@ -12,5 +13,10 @@ export default async function DashboardChatsPage() {
 
   const conversations = await getConversationsForUser(supabase, user.id);
 
-  return <ChatListScreen conversations={conversations} />;
+  return (
+    <>
+      <MarkSectionRead navKey="chats" />
+      <ChatListScreen conversations={conversations} />
+    </>
+  );
 }

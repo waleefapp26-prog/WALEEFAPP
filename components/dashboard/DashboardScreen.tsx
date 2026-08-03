@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
@@ -21,9 +21,16 @@ type Props = {
   isAdmin?: boolean;
   initialCandidates: Profile[];
   currentUserId: string;
+  /** Unanswered post-match compatibility questions; 0 before a first match. */
+  compatRemaining?: number;
 };
 
-export function DashboardScreen({ initialCandidates, currentUserId, isAdmin = false }: Props) {
+export function DashboardScreen({
+  initialCandidates,
+  currentUserId,
+  isAdmin = false,
+  compatRemaining = 0,
+}: Props) {
   const router = useRouter();
   const supabase = createClient();
   const { dictionary } = useTranslation();
@@ -113,6 +120,24 @@ export function DashboardScreen({ initialCandidates, currentUserId, isAdmin = fa
         {/* Was four stacked underlined links; same destinations, but as
             scannable icon chips instead of a wall of sentences. */}
         <QuickActions isAdmin={isAdmin} />
+
+        {/* The 44 detailed questions open on a first mutual match. Nothing
+            used to announce that, so members matched and never discovered
+            there was a whole second questionnaire waiting. */}
+        {compatRemaining > 0 ? (
+          <Link href="/dashboard/questionnaire" className={styles.compatPrompt}>
+            <span className={styles.compatIcon} aria-hidden>
+              <Sparkles size={18} />
+            </span>
+            <span className={styles.compatText}>
+              <strong className={styles.compatTitle}>{dictionary.deck.compatUnlockedTitle}</strong>
+              <span className={styles.compatBody}>
+                {dictionary.deck.compatUnlockedBody.replace("{count}", String(compatRemaining))}
+              </span>
+            </span>
+            <span className={styles.compatCount}>{compatRemaining}</span>
+          </Link>
+        ) : null}
       </header>
 
       <FilterPanel

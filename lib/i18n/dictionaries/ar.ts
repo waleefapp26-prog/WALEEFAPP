@@ -216,6 +216,8 @@ export const ar: Dictionary = {
   deck: {
     loadingMatches: "جارٍ تحميل التطابقات...",
     todaysMatches: "تطابقات اليوم لك",
+    compatUnlockedTitle: "فُتحت أسئلة التوافق التفصيلية",
+    compatUnlockedBody: "لديك تطابق — أجب عن {count} سؤالاً إضافياً لتعرف مدى توافقكما.",
     completeQuiz: "أكمل اختبار التوافق للحصول على نسبة تطابق حقيقية",
     managePhotos: "إدارة صورك",
     getVerified: "احصل على التوثيق",

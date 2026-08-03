@@ -114,6 +114,8 @@ export type Dictionary = {
   deck: {
     loadingMatches: string;
     todaysMatches: string;
+    compatUnlockedTitle: string;
+    compatUnlockedBody: string;
     completeQuiz: string;
     managePhotos: string;
     getVerified: string;

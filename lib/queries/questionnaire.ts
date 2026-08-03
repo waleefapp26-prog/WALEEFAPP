@@ -38,6 +38,27 @@ export async function getCompatibilityQuestions(supabase: SupabaseClient): Promi
   return ((data as QuestionRow[] | null) ?? []).map(mapQuestionRow);
 }
 
+/** How far through the post-match compatibility bank a member is.
+ *
+ *  These 44 questions unlock on a first mutual match, but nothing announced
+ *  that -- the only entry point was a "Compatibility quiz" chip that looked
+ *  identical before and after matching, so members had no way to know there
+ *  was anything new to answer. */
+export async function getCompatibilityProgress(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<{ total: number; answered: number }> {
+  const [{ count: total }, { count: answered }] = await Promise.all([
+    supabase.from("questions").select("id", { count: "exact", head: true }).eq("section", "compatibility"),
+    supabase
+      .from("answers")
+      .select("question_id, questions!inner(section)", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .eq("questions.section", "compatibility"),
+  ]);
+  return { total: total ?? 0, answered: answered ?? 0 };
+}
+
 type OnboardingRow = {
   id: string;
   slug: string;

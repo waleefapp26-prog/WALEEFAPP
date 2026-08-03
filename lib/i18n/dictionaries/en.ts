@@ -221,6 +221,8 @@ export const en: Dictionary = {
   deck: {
     loadingMatches: "Loading matches...",
     todaysMatches: "Today's matches for you",
+    compatUnlockedTitle: "Detailed compatibility questions are open",
+    compatUnlockedBody: "You have a match — answer {count} more to see how well you really fit.",
     completeQuiz: "Complete your compatibility quiz for a real match score",
     managePhotos: "Manage your photos",
     getVerified: "Get verified",

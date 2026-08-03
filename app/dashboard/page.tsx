@@ -1,6 +1,9 @@
 import { redirect } from "next/navigation";
 import { DashboardScreen } from "@/components/dashboard/DashboardScreen";
+import { MarkSectionRead } from "@/components/dashboard/MarkSectionRead";
+import { hasAnyMatch } from "@/lib/queries/matches";
 import { getCandidateProfiles } from "@/lib/queries/profiles";
+import { getCompatibilityProgress } from "@/lib/queries/questionnaire";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function DashboardPage() {
@@ -16,17 +19,29 @@ export default async function DashboardPage() {
   // whole route.
   if (!user) redirect("/login");
 
-  const candidates = await getCandidateProfiles(supabase);
+  const [candidates, matched] = await Promise.all([
+    getCandidateProfiles(supabase),
+    hasAnyMatch(supabase, user.id),
+  ]);
+
+  // The compatibility bank only opens after a first mutual match, so prompt
+  // for it exactly then -- otherwise members never learn it exists.
+  const progress = matched ? await getCompatibilityProgress(supabase, user.id) : null;
+  const compatRemaining = progress ? progress.total - progress.answered : 0;
 
   // Drives the admin-only "Review queue" chip. Without an entry point the
   // moderation screens were unreachable unless you typed /admin by hand.
   const { data: me } = await supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle();
 
   return (
-    <DashboardScreen
-      initialCandidates={candidates}
-      currentUserId={user.id}
-      isAdmin={Boolean(me?.is_admin)}
-    />
+    <>
+      <MarkSectionRead navKey="matches" />
+      <DashboardScreen
+        initialCandidates={candidates}
+        currentUserId={user.id}
+        isAdmin={Boolean(me?.is_admin)}
+        compatRemaining={compatRemaining}
+      />
+    </>
   );
 }

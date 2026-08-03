@@ -1,4 +1,5 @@
 import { notFound, redirect } from "next/navigation";
+import { MarkSectionRead } from "@/components/dashboard/MarkSectionRead";
 import { MyProfileScreen } from "@/components/screens/MyProfileScreen";
 import { getProfileById } from "@/lib/queries/profiles";
 import { createClient } from "@/lib/supabase/server";
@@ -16,5 +17,10 @@ export default async function MyProfilePage() {
   const profile = await getProfileById(supabase, user.id);
   if (!profile) notFound();
 
-  return <MyProfileScreen profile={profile} />;
+  return (
+    <>
+      <MarkSectionRead navKey="profile" />
+      <MyProfileScreen profile={profile} />
+    </>
+  );
 }

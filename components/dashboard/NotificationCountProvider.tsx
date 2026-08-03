@@ -1,15 +1,26 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { navKeyForNotification, type NavUnreadCounts } from "@/lib/notifications/navRouting";
 import type { NotificationType } from "@/lib/notifications/types";
 import { createClient } from "@/lib/supabase/client";
 
 const NotificationCountContext = createContext<NavUnreadCounts>({});
 
+/** Split from the value context so components that only clear a badge don't
+ *  re-render every time a count changes. */
+const ClearNavUnreadContext = createContext<(key: NavKey) => void>(() => {});
+
+type NavKey = keyof NavUnreadCounts;
+
 /** Unread counts per nav destination. */
 export function useNavUnreadCounts() {
   return useContext(NotificationCountContext);
+}
+
+/** Zero one destination's badge, for when the member opens that section. */
+export function useClearNavUnread() {
+  return useContext(ClearNavUnreadContext);
 }
 
 /** Total unread across every destination, for the bell. */
@@ -38,6 +49,10 @@ export function NotificationCountProvider({
 }) {
   const [counts, setCounts] = useState<NavUnreadCounts>(initialCounts);
 
+  const clearNavKey = useCallback((key: NavKey) => {
+    setCounts((prev) => (prev[key] ? { ...prev, [key]: 0 } : prev));
+  }, []);
+
   useEffect(() => {
     // Signed-out shell: nothing to subscribe to, and an empty id would build
     // an invalid `user_id=eq.` filter.
@@ -62,5 +77,9 @@ export function NotificationCountProvider({
     };
   }, [userId]);
 
-  return <NotificationCountContext.Provider value={counts}>{children}</NotificationCountContext.Provider>;
+  return (
+    <ClearNavUnreadContext.Provider value={clearNavKey}>
+      <NotificationCountContext.Provider value={counts}>{children}</NotificationCountContext.Provider>
+    </ClearNavUnreadContext.Provider>
+  );
 }
