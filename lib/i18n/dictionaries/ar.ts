@@ -414,6 +414,12 @@ export const ar: Dictionary = {
     footnote: "تذكر: خذ وقتك وأشرك وليّك عندما تكون مستعداً",
   },
   questionnaireScreen: {
+    stepOf: "الخطوة {current} من {total}",
+    tierCompatibility: "التوافق التفصيلي",
+    tierOptional: "الأسئلة الاختيارية",
+    tierOpen: "مفتوحة",
+    tierNeedsMatch: "تُفتح عند أول تطابق لك",
+    tierNeedsRequest: "تُفتح عندما يطلب منك أحد تطابقاتك",
     optionalLockedTitle: "الأسئلة الاختيارية",
     optionalLockedBody: "تُفتح هذه الأسئلة عندما يطلب منك أحد تطابقاتك الإجابة عليها، ولا شيء منها إلزامي.",
     requestTitle: "أحد تطابقاتك يودّ معرفة المزيد",

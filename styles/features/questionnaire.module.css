@@ -92,3 +92,36 @@
   gap: 0.6rem;
   flex-wrap: wrap;
 }
+
+/* Which question banks are open, and what opens the closed ones. */
+.tiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tier {
+  flex: 1 1 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-gray-200);
+  background: var(--waleef-white);
+}
+
+.tierLocked {
+  background: var(--waleef-beige);
+}
+
+.tierName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.tierState {
+  font-size: 0.75rem;
+  color: var(--waleef-text-secondary);
+}

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { respondToQuestionsRequest } from "@/app/dashboard/profile/actions";
 import { Button, Card, ProgressBar, Tag } from "@/components/ui";
+import { cn } from "@/lib/cn";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { upsertAnswer } from "@/lib/queries/questionnaire";
 import { evaluateShowIf } from "@/lib/questionnaire/showIf";
@@ -124,8 +125,37 @@ export function QuestionnaireScreen({
   return (
     <div className={styles.page}>
       <div className={styles.inner}>
+        {/* Which of the three banks are open, and what opens the closed ones.
+            The "optional questions are locked" explanation used to live on the
+            very last wizard step -- step 6 of 6 -- so nobody reached it and
+            nobody could tell when those questions would appear. */}
+        <div className={styles.tiers}>
+          <div className={cn(styles.tier, styles.tierOpen)}>
+            <span className={styles.tierName}>{dictionary.questionnaireScreen.tierCompatibility}</span>
+            <span className={styles.tierState}>
+              {hasMatch
+                ? dictionary.questionnaireScreen.tierOpen
+                : dictionary.questionnaireScreen.tierNeedsMatch}
+            </span>
+          </div>
+          <div className={cn(styles.tier, !optionalUnlocked && styles.tierLocked)}>
+            <span className={styles.tierName}>{dictionary.questionnaireScreen.tierOptional}</span>
+            <span className={styles.tierState}>
+              {optionalUnlocked
+                ? dictionary.questionnaireScreen.tierOpen
+                : dictionary.questionnaireScreen.tierNeedsRequest}
+            </span>
+          </div>
+        </div>
+
         <div className={styles.progressWrap}>
-          <ProgressBar currentStep={step + 1} totalSteps={steps.length} />
+          <ProgressBar
+            currentStep={step + 1}
+            totalSteps={steps.length}
+            label={dictionary.questionnaireScreen.stepOf
+              .replace("{current}", String(step + 1))
+              .replace("{total}", String(steps.length))}
+          />
         </div>
 
         {/* Incoming asks sit above the wizard so they are actionable from the

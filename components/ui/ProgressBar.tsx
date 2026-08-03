@@ -6,9 +6,12 @@ export type ProgressBarProps = {
   currentStep: number;
   totalSteps: number;
   className?: string;
+  /** "Step {current} of {total}" in the active locale. Hardcoded English here
+   *  showed a lone English label in the middle of an Arabic questionnaire. */
+  label?: string;
 };
 
-export function ProgressBar({ currentStep, totalSteps, className }: ProgressBarProps) {
+export function ProgressBar({ currentStep, totalSteps, className, label }: ProgressBarProps) {
   const gid = useId().replace(/:/g, "");
   const gradId = `wf-pb-grad-${gid}`;
   const w = (currentStep / totalSteps) * 100;
@@ -17,9 +20,7 @@ export function ProgressBar({ currentStep, totalSteps, className }: ProgressBarP
   return (
     <div className={cn(styles.root, className)}>
       <div className={styles.meta}>
-        <span className={styles.metaLabel}>
-          Step {currentStep} of {totalSteps}
-        </span>
+        <span className={styles.metaLabel}>{label ?? `Step ${currentStep} of ${totalSteps}`}</span>
         <span className={styles.metaPct}>{pct}%</span>
       </div>
       <svg viewBox="0 0 100 3" preserveAspectRatio="none" className={styles.svg} aria-hidden>

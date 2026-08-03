@@ -311,6 +311,12 @@ export type Dictionary = {
     footnote: string;
   };
   questionnaireScreen: {
+    stepOf: string;
+    tierCompatibility: string;
+    tierOptional: string;
+    tierOpen: string;
+    tierNeedsMatch: string;
+    tierNeedsRequest: string;
     optionalLockedTitle: string;
     optionalLockedBody: string;
     requestTitle: string;

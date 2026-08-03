@@ -420,6 +420,12 @@ export const en: Dictionary = {
     footnote: "Remember: Take your time and involve your wali when you're ready",
   },
   questionnaireScreen: {
+    stepOf: "Step {current} of {total}",
+    tierCompatibility: "Detailed compatibility",
+    tierOptional: "Optional questions",
+    tierOpen: "Open",
+    tierNeedsMatch: "Opens on your first match",
+    tierNeedsRequest: "Opens when a match asks you",
     optionalLockedTitle: "Optional questions",
     optionalLockedBody:
       "These open up when one of your matches asks you to answer them. Nothing here is required.",
