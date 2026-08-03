@@ -4,9 +4,13 @@ import styles from "@/styles/ui/match-percentage.module.css";
 type Size = "sm" | "md" | "lg";
 
 type Props = {
-  percentage: number;
+  /** null when the pair has no overlapping answers yet -- rendered as an
+   *  explicit dash rather than an invented number. */
+  percentage: number | null;
   size?: Size;
   className?: string;
+  /** Caption under the figure; defaults to "Match". */
+  caption?: string;
 };
 
 function strokeColor(percent: number): string {
@@ -28,12 +32,14 @@ const sizeMap: Record<
   lg: { circle: 180, stroke: 10, percentClass: styles.percentLg },
 };
 
-export function MatchPercentage({ percentage, size = "md", className }: Props) {
+export function MatchPercentage({ percentage, size = "md", className, caption = "Match" }: Props) {
   const { circle, stroke, percentClass } = sizeMap[size];
   const radius = (circle - stroke) / 2;
   const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (percentage / 100) * circumference;
-  const color = strokeColor(percentage);
+  // Unknown draws an empty ring in neutral grey: no arc to imply a score.
+  const known = percentage !== null;
+  const offset = known ? circumference - (percentage / 100) * circumference : circumference;
+  const color = known ? strokeColor(percentage) : "#d8d2c4";
 
   return (
     <div className={cn(styles.wrap, className)}>
@@ -63,8 +69,8 @@ export function MatchPercentage({ percentage, size = "md", className }: Props) {
         </circle>
       </svg>
       <div className={styles.labelStack}>
-        <span className={cn(styles.percent, percentClass)}>{percentage}%</span>
-        <span className={styles.caption}>Match</span>
+        <span className={cn(styles.percent, percentClass)}>{known ? `${percentage}%` : "—"}</span>
+        <span className={styles.caption}>{caption}</span>
       </div>
     </div>
   );

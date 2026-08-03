@@ -17,16 +17,6 @@ export type LandingStep = {
   descriptionAr: string;
 };
 
-export type LandingTestimonial = {
-  name: string;
-  nameAr: string;
-  location: string;
-  locationAr: string;
-  story: string;
-  storyAr: string;
-  match: string;
-};
-
 export const LANDING_NAV_LINKS = [
   { href: "/#features", label: "Features", labelAr: "المزايا" },
   { href: "/#how-it-works", label: "How it Works", labelAr: "كيف يعمل" },
@@ -88,39 +78,6 @@ export const LANDING_STEPS: LandingStep[] = [
   },
 ];
 
-export const LANDING_TESTIMONIALS: LandingTestimonial[] = [
-  {
-    name: "Ahmed & Fatima",
-    nameAr: "أحمد وفاطمة",
-    location: "London, UK",
-    locationAr: "لندن، المملكة المتحدة",
-    story:
-      "Alhamdulillah, we found each other on Waleef. The family involvement feature made the process so much easier and more respectful.",
-    storyAr: "الحمد لله، وجدنا بعضنا البعض على وليف. جعلت ميزة مشاركة العائلة العملية أسهل وأكثر احتراماً بكثير.",
-    match: "95% Match",
-  },
-  {
-    name: "Yusuf & Aisha",
-    nameAr: "يوسف وعائشة",
-    location: "New York, USA",
-    locationAr: "نيويورك، الولايات المتحدة",
-    story:
-      "The AI coach helped us navigate difficult conversations. We're now happily married with a beautiful family.",
-    storyAr: "ساعدنا المرشد الذكي على تجاوز المحادثات الصعبة. نحن الآن متزوجان بسعادة ولدينا عائلة جميلة.",
-    match: "88% Match",
-  },
-  {
-    name: "Omar & Maryam",
-    nameAr: "عمر ومريم",
-    location: "Dubai, UAE",
-    locationAr: "دبي، الإمارات",
-    story:
-      "We appreciated how Waleef prioritized our Islamic values. The platform made it easy to find someone truly compatible.",
-    storyAr: "قدّرنا كيف أعطى وليف الأولوية لقيمنا الإسلامية. سهّلت المنصة إيجاد شخص متوافق حقاً.",
-    match: "92% Match",
-  },
-];
-
 export type FooterLink = { label: string; labelAr: string; href?: string };
 export type FooterColumn = { title: string; titleAr: string; links: FooterLink[] };
 
@@ -132,7 +89,7 @@ export const LANDING_FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Features", labelAr: "المزايا", href: "/#features" },
       { label: "How it Works", labelAr: "كيف يعمل", href: "/#how-it-works" },
       { label: "Pricing", labelAr: "الأسعار", href: "/#pricing" },
-      { label: "Success Stories", labelAr: "قصص نجاح", href: "/#success-stories" },
+      { label: "Success Stories", labelAr: "قصص نجاح", href: "/success-stories" },
     ],
   },
   {

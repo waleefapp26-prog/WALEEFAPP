@@ -1,6 +1,5 @@
 import { createServiceClient } from "@/lib/supabase/service";
 import { computeCompatibility, type ScoredQuestion } from "./scoreEngine";
-import { computePlaceholderBreakdown, computePlaceholderScore } from "./placeholderScore";
 
 const HIGH_COMPATIBILITY_THRESHOLD = 85;
 
@@ -19,7 +18,10 @@ type AnswerRow = {
 };
 
 export type Compatibility = {
-  overall: number;
+  /** null when the two have no overlapping answers yet. Previously this fell
+   *  back to a hash-derived stand-in, which presented an invented number as a
+   *  real compatibility score. */
+  overall: number | null;
   breakdown: { label: string; score: number }[];
   strengths: string[];
   conflicts: string[];
@@ -36,8 +38,9 @@ function formatBucketLabel(bucket: string): string {
  * pre-existing, bilingual, real content) via the service client (server-only;
  * never exposed to the browser, since questionnaire_answers-equivalent RLS is
  * owner-only). Falls back to the deterministic placeholder if neither user
- * has answered anything in common yet. When a matchId is given, caches the
- * result in public.match_scores and reads that cache on subsequent calls.
+ * has answered anything in common yet -- in which case `overall` is null, not
+ * a stand-in figure. When a matchId is given, caches the result in
+ * public.match_scores and reads that cache on subsequent calls.
  */
 export async function getCompatibility(
   userIdA: string,
@@ -116,12 +119,8 @@ export async function getCompatibility(
   const result = computeCompatibility(scored);
 
   if (!result) {
-    return {
-      overall: computePlaceholderScore(userIdA, userIdB),
-      breakdown: computePlaceholderBreakdown(userIdA, userIdB),
-      strengths: [],
-      conflicts: [],
-    };
+    // Nothing in common answered yet -- say so rather than inventing a figure.
+    return { overall: null, breakdown: [], strengths: [], conflicts: [] };
   }
 
   if (matchId) {

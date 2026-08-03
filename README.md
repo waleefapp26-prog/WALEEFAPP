@@ -31,7 +31,7 @@ npm run dev
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser/server clients (RLS-bound) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only privileged operations (webhooks, admin routes) — never expose to the browser |
 | `NEXT_PUBLIC_SITE_URL` | Building absolute links in emails/callbacks |
-| `RESEND_API_KEY` | Wali invite emails, guardian login codes, notification emails. **Not set today** — without it the app still saves the invite but tells the member it could not email their guardian and shows a link to share instead. |
+| `RESEND_API_KEY` | Wali invite emails, guardian login codes, notification emails. Sends from `noreply@waleef.net` (domain verified in Resend). Override the sender with `RESEND_FROM`. |
 | `STRIPE_SECRET_KEY` | Stripe Checkout session creation |
 | `STRIPE_WEBHOOK_SECRET` | Verifies the Stripe webhook signature on `/api/payments/webhook` |
 | `NOTIFICATIONS_WEBHOOK_SECRET` | Verifies the Supabase Database Webhook that triggers `/api/notifications/dispatch` |
@@ -44,9 +44,10 @@ Run these in the Supabase SQL Editor, **in this exact order**, only once per pro
 2. `supabase/schema-phase2.sql` — additive (filters, blocks/reports, wali invites, payments).
 3. `supabase/schema-phase3.sql` — additive (compatibility questionnaire wiring, photos, verification, privacy, notifications, admin). Safe to re-run.
 4. `supabase/schema-phase4.sql` — additive (guardian-by-email dashboard + OTP, wali chat oversight, two-tier verification, match freeze/rate, new notification types, premium ranking). Safe to re-run.
-5. `supabase/schema-phase5.sql` — additive (photo visibility policy so members can actually see each other's photos, post-moderation default, and the optional-questions request flow). Safe to re-run.
+5. `supabase/schema-phase5.sql` — additive (photo visibility policy so members can actually see each other's photos, post-moderation default, the optional-questions request flow, and the pg_cron schedules). Safe to re-run.
+6. `supabase/schema-phase6.sql` — additive (real, consented, admin-approved success stories). Safe to re-run.
 
-`schema-phase3.sql`, `schema-phase4.sql` and `schema-phase5.sql` each have a header comment with the manual steps required around them (enabling `pg_cron`, creating Storage buckets, configuring the notifications webhook) — read them before running.
+`schema-phase3.sql` through `schema-phase6.sql` each have a header comment with the manual steps required around them (enabling `pg_cron`, creating Storage buckets, configuring the notifications webhook) — read them before running.
 
 The authoritative bilingual question bank (103 questions: 22 registration + 44
 detailed-compatibility + 37 optional, sourced from the client's revised

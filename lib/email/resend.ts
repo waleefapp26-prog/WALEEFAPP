@@ -23,3 +23,11 @@ export function getResendClient(): Resend {
 export function isResendConfigured(): boolean {
   return Boolean(process.env.RESEND_API_KEY);
 }
+
+/** The From address for every outbound email.
+ *
+ *  Must be on a domain verified in Resend. The previous value,
+ *  `onboarding@resend.dev`, is Resend's shared test sender: it only ever
+ *  delivers to the address that owns the Resend account, so guardian invites
+ *  to anyone else were accepted by the API and then silently dropped. */
+export const EMAIL_FROM = process.env.RESEND_FROM ?? "Waleef <noreply@waleef.net>";

@@ -1,3 +1,4 @@
+import type { SuccessStory } from "@/lib/queries/successStories";
 import styles from "@/styles/features/landing.module.css";
 import { LandingCta } from "./LandingCta";
 import { LandingFaq } from "./LandingFaq";
@@ -10,7 +11,12 @@ import { LandingSteps } from "./LandingSteps";
 import { LandingTestimonials } from "./LandingTestimonials";
 import { LandingTrust } from "./LandingTrust";
 
-export function LandingPage() {
+type Props = {
+  /** Real published stories; the section hides itself when there are none. */
+  successStories: SuccessStory[];
+};
+
+export function LandingPage({ successStories }: Props) {
   return (
     <div className={styles.page}>
       <LandingNav />
@@ -18,7 +24,7 @@ export function LandingPage() {
       <LandingFeatureGrid />
       <LandingSteps />
       <LandingTrust />
-      <LandingTestimonials />
+      <LandingTestimonials stories={successStories} />
       <LandingPricing />
       <LandingFaq />
       <LandingCta />

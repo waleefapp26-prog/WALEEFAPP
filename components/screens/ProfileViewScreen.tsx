@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useId, useState } from "react";
 import { BookOpen, Briefcase, MapPin, MessageCircle, Users } from "lucide-react";
@@ -28,7 +28,7 @@ function MiniScoreBar({ score }: { score: number }) {
 
 type Props = {
   profile: Profile;
-  matchPercentage: number;
+  matchPercentage: number | null;
   compatibility: { label: string; score: number }[];
 };
 

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { DashboardScreen } from "@/components/dashboard/DashboardScreen";
 import { MarkSectionRead } from "@/components/dashboard/MarkSectionRead";
+import { getDeckCompatibilityScores } from "@/lib/matching/deckScores";
 import { hasAnyMatch } from "@/lib/queries/matches";
 import { getCandidateProfiles } from "@/lib/queries/profiles";
 import { getCompatibilityProgress } from "@/lib/queries/questionnaire";
@@ -33,6 +34,13 @@ export default async function DashboardPage() {
   // moderation screens were unreachable unless you typed /admin by hand.
   const { data: me } = await supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle();
 
+  // Real scores, computed from both parties' answers. A candidate maps to null
+  // when there is no overlap yet, and the card shows that as unknown.
+  const scores = await getDeckCompatibilityScores(
+    user.id,
+    candidates.map((c) => c.id),
+  );
+
   return (
     <>
       <MarkSectionRead navKey="matches" />
@@ -41,6 +49,7 @@ export default async function DashboardPage() {
         currentUserId={user.id}
         isAdmin={Boolean(me?.is_admin)}
         compatRemaining={compatRemaining}
+        initialScores={Object.fromEntries(scores)}
       />
     </>
   );

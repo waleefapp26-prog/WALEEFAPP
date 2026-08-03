@@ -1,6 +1,6 @@
 "use server";
 
-import { getResendClient, isResendConfigured } from "@/lib/email/resend";
+import { EMAIL_FROM, getResendClient, isResendConfigured } from "@/lib/email/resend";
 import { createClient } from "@/lib/supabase/server";
 
 export type SubmitProposalInput = {
@@ -70,7 +70,7 @@ export async function submitProposal(input: SubmitProposalInput): Promise<Submit
 
   try {
     await getResendClient().emails.send({
-      from: "Waleef <onboarding@resend.dev>",
+      from: EMAIL_FROM,
       to: input.waliEmail.trim(),
       subject: "وصلكم طلب نظرة شرعية عبر تطبيق وليف",
       html: `

@@ -1,4 +1,4 @@
-import { getResendClient } from "@/lib/email/resend";
+import { EMAIL_FROM, getResendClient } from "@/lib/email/resend";
 import type { NotificationChannel } from "./types";
 
 export const inAppChannel: NotificationChannel = {
@@ -16,7 +16,7 @@ export const emailChannel: NotificationChannel = {
     if (!recipient.email) return;
     try {
       await getResendClient().emails.send({
-        from: "Waleef <onboarding@resend.dev>",
+        from: EMAIL_FROM,
         to: recipient.email,
         subject: payload.title,
         html: `<p>${payload.title}</p>${payload.body ? `<p>${payload.body}</p>` : ""}`,

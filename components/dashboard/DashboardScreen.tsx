@@ -8,7 +8,7 @@ import { SlidersHorizontal, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
-import { computePlaceholderScore } from "@/lib/matching/placeholderScore";
+import { fetchDeckScores } from "@/app/dashboard/actions";
 import { getCandidateProfiles, type CandidateFilters } from "@/lib/queries/profiles";
 import type { Profile } from "@/lib/types/profile";
 import styles from "@/styles/features/dashboard-deck.module.css";
@@ -23,6 +23,8 @@ type Props = {
   currentUserId: string;
   /** Unanswered post-match compatibility questions; 0 before a first match. */
   compatRemaining?: number;
+  /** Real compatibility per candidate id; null where there's no overlap yet. */
+  initialScores?: Record<string, number | null>;
 };
 
 export function DashboardScreen({
@@ -30,6 +32,7 @@ export function DashboardScreen({
   currentUserId,
   isAdmin = false,
   compatRemaining = 0,
+  initialScores = {},
 }: Props) {
   const router = useRouter();
   const supabase = createClient();
@@ -40,6 +43,7 @@ export function DashboardScreen({
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState<CandidateFilters>({});
   const [loadingCandidates, setLoadingCandidates] = useState(false);
+  const [scores, setScores] = useState(initialScores);
 
   const advance = () => {
     setCurrentIndex((i) => (i < profiles.length - 1 ? i + 1 : profiles.length));
@@ -54,6 +58,9 @@ export function DashboardScreen({
       const candidates = await getCandidateProfiles(supabase, 20, nextFilters);
       setProfiles(candidates);
       setCurrentIndex(0);
+      // Scores need both parties' answers, which RLS keeps owner-only, so the
+      // new list has to be scored server-side too.
+      setScores(await fetchDeckScores(candidates.map((c) => c.id)));
     } catch (err) {
       console.error("Failed to load filtered candidates", err);
     } finally {
@@ -153,7 +160,7 @@ export function DashboardScreen({
             <Link href={`/dashboard/profile/${currentProfile.id}`} className={styles.profileLink}>
               <MatchProfileCard
                 profile={currentProfile}
-                matchPercentage={computePlaceholderScore(currentUserId, currentProfile.id)}
+                matchPercentage={scores[currentProfile.id] ?? null}
               />
             </Link>
           </div>

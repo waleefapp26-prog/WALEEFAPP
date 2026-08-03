@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/admin/verifications", label: "Verifications" },
   { href: "/admin/reports", label: "Reports" },
   { href: "/admin/photos", label: "Photos" },
+  { href: "/admin/success-stories", label: "Stories" },
 ];
 
 export function AdminNav() {

@@ -177,3 +177,32 @@ begin
 end;
 $$;
 grant execute on function public.respond_to_optional_questions_request(uuid, text) to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- C. Scheduled jobs (applied 2026-08-03)
+--
+-- cron.job was empty. Both functions existed -- purge_expired_messages since
+-- phase 3, notify_incomplete_profiles since phase 4 -- but nothing ever called
+-- them, so the per-member chat-retention setting was decorative (no message
+-- was ever deleted, whatever a member chose) and completion reminders never
+-- sent.
+--
+-- Safe to re-run: the unschedule pass clears prior copies first.
+-- ---------------------------------------------------------------------------
+
+create extension if not exists pg_cron;
+
+select cron.unschedule(jobid) from cron.job
+where jobname in ('waleef_purge_expired_messages', 'waleef_profile_completion_reminders');
+
+select cron.schedule(
+  'waleef_purge_expired_messages',
+  '15 3 * * *',
+  $$select public.purge_expired_messages()$$
+);
+
+select cron.schedule(
+  'waleef_profile_completion_reminders',
+  '0 10 * * *',
+  $$select public.notify_incomplete_profiles()$$
+);

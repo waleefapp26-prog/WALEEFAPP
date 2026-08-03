@@ -1,4 +1,4 @@
-import { BookOpen, Briefcase, MapPin } from "lucide-react";
+﻿import { BookOpen, Briefcase, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { MatchPercentage } from "@/components/ui/MatchPercentage";
@@ -8,7 +8,7 @@ import styles from "@/styles/features/dashboard-deck.module.css";
 
 type Props = {
   profile: Profile;
-  matchPercentage: number;
+  matchPercentage: number | null;
 };
 
 export function MatchProfileCard({ profile, matchPercentage }: Props) {

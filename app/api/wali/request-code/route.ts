@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getResendClient, isResendConfigured } from "@/lib/email/resend";
+import { EMAIL_FROM, getResendClient, isResendConfigured } from "@/lib/email/resend";
 import { createServiceClient } from "@/lib/supabase/service";
 
 function generateCode(): string {
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
   try {
     await getResendClient().emails.send({
-      from: "Waleef <onboarding@resend.dev>",
+      from: EMAIL_FROM,
       to: waliEmail,
       subject: "رمز الدخول إلى لوحة الوليّ في تطبيق وليف",
       html: `<p>رمز الدخول الخاص بك هو: <strong>${code}</strong></p><p>صالح لمدة 10 دقائق.</p>`,

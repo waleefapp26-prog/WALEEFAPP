@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Heart, MessageCircle, Sparkles, Users } from "lucide-react";
 import { Button, Card, MatchPercentage } from "@/components/ui";
@@ -9,7 +9,7 @@ import styles from "@/styles/features/match-result.module.css";
 type Props = {
   matchId: string;
   name: string;
-  percentage: number;
+  percentage: number | null;
   conversationId: string | null;
   strengths?: string[];
   conflicts?: string[];
