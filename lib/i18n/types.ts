@@ -208,6 +208,13 @@ export type Dictionary = {
     relationUncle: string;
     relationGrandfather: string;
     relationOther: string;
+    chatAccessLabel: string;
+    permissionNone: string;
+    permissionRead: string;
+    permissionReact: string;
+    permissionChat: string;
+    permissionSaved: string;
+    permissionHelp: string;
   };
   proposal: {
     emailNotSent: string;
@@ -359,6 +366,17 @@ export type Dictionary = {
     approvedMsg: string;
     declinedMsg: string;
   };
+  waliChat: {
+    heading: string;
+    readOnlyNote: string;
+    reactNote: string;
+    chatNote: string;
+    empty: string;
+    participantFallback: string;
+    typeMessage: string;
+    send: string;
+    reactAria: string;
+  };
   waliLogin: {
     emailUnavailable: string;
     heading: string;
@@ -395,7 +413,11 @@ export type Dictionary = {
     respectfulDesc: string;
     noWaliInvite: string;
     involveWali: string;
+    manageGuardianAccess: string;
     waliCanReview: string;
+    waliCanReact: string;
+    waliCanChat: string;
+    guardianLabel: string;
     online: string;
     typeMessage: string;
     reportSent: string;

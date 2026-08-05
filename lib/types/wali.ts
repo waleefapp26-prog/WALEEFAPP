@@ -1,5 +1,8 @@
 export type WaliInviteStatus = "pending" | "approved" | "declined";
 
+/** Ordered tiers -- each includes everything below it. */
+export type WaliChatPermission = "none" | "read" | "react" | "chat";
+
 export type WaliInvite = {
   id: string;
   requesterId: string;
@@ -12,4 +15,5 @@ export type WaliInvite = {
   notes: string | null;
   createdAt: string;
   respondedAt: string | null;
+  chatPermission: WaliChatPermission;
 };

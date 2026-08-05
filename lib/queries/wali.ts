@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { WaliInvite, WaliInviteStatus } from "@/lib/types/wali";
+import type { WaliChatPermission, WaliInvite, WaliInviteStatus } from "@/lib/types/wali";
 
 type WaliInviteRow = {
   id: string;
@@ -13,6 +13,7 @@ type WaliInviteRow = {
   notes: string | null;
   created_at: string;
   responded_at: string | null;
+  chat_permission: WaliChatPermission;
 };
 
 function mapWaliInviteRow(row: WaliInviteRow): WaliInvite {
@@ -28,6 +29,7 @@ function mapWaliInviteRow(row: WaliInviteRow): WaliInvite {
     notes: row.notes,
     createdAt: row.created_at,
     respondedAt: row.responded_at,
+    chatPermission: row.chat_permission,
   };
 }
 

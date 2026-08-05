@@ -1,17 +1,48 @@
 "use client";
 
+import { useState } from "react";
 import { CheckCircle, Clock, Eye, XCircle } from "lucide-react";
+import { setWaliChatPermission } from "@/app/dashboard/family/actions";
 import { Card } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
-import type { WaliInvite } from "@/lib/types/wali";
+import type { WaliChatPermission, WaliInvite } from "@/lib/types/wali";
 import styles from "@/styles/features/family-panel.module.css";
 
 type Props = {
   invites: WaliInvite[];
 };
 
-export function FamilyPanelScreen({ invites }: Props) {
+const PERMISSION_LEVELS: WaliChatPermission[] = ["none", "read", "react", "chat"];
+
+export function FamilyPanelScreen({ invites: initialInvites }: Props) {
   const { dictionary } = useTranslation();
+  const [invites, setInvites] = useState(initialInvites);
+  const [savingId, setSavingId] = useState<string | null>(null);
+  const [savedId, setSavedId] = useState<string | null>(null);
+  const [errorId, setErrorId] = useState<string | null>(null);
+
+  const permissionLabel: Record<WaliChatPermission, string> = {
+    none: dictionary.family.permissionNone,
+    read: dictionary.family.permissionRead,
+    react: dictionary.family.permissionReact,
+    chat: dictionary.family.permissionChat,
+  };
+
+  const handlePermissionChange = async (inviteId: string, permission: WaliChatPermission) => {
+    setSavingId(inviteId);
+    setErrorId(null);
+    setSavedId(null);
+    const result = await setWaliChatPermission(inviteId, permission);
+    setSavingId(null);
+    if (result.success) {
+      setInvites((prev) => prev.map((i) => (i.id === inviteId ? { ...i, chatPermission: result.permission } : i)));
+      setSavedId(inviteId);
+      setTimeout(() => setSavedId((current) => (current === inviteId ? null : current)), 2000);
+    } else {
+      setErrorId(inviteId);
+    }
+  };
+
   const pending = invites.filter((i) => i.status === "pending").length;
   const approved = invites.filter((i) => i.status === "approved").length;
 
@@ -97,6 +128,38 @@ export function FamilyPanelScreen({ invites }: Props) {
                       )}
                     </div>
                   </div>
+
+                  {invite.status === "approved" ? (
+                    <div className={styles.permissionRow}>
+                      <div className={styles.permissionLabelWrap}>
+                        <label className={styles.permissionLabel} htmlFor={`permission-${invite.id}`}>
+                          {dictionary.family.chatAccessLabel}
+                        </label>
+                        <p className={styles.permissionHelp}>{dictionary.family.permissionHelp}</p>
+                      </div>
+                      <div className={styles.permissionControl}>
+                        <select
+                          id={`permission-${invite.id}`}
+                          className={styles.permissionSelect}
+                          value={invite.chatPermission}
+                          disabled={savingId === invite.id}
+                          onChange={(e) => void handlePermissionChange(invite.id, e.target.value as WaliChatPermission)}
+                        >
+                          {PERMISSION_LEVELS.map((level) => (
+                            <option key={level} value={level}>
+                              {permissionLabel[level]}
+                            </option>
+                          ))}
+                        </select>
+                        {savedId === invite.id ? (
+                          <span className={styles.permissionSaved}>{dictionary.family.permissionSaved}</span>
+                        ) : null}
+                        {errorId === invite.id ? (
+                          <span className={styles.permissionError}>{dictionary.auth.genericError}</span>
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : null}
                 </Card>
               ))}
             </div>

@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { ChatScreen } from "@/components/screens/ChatScreen";
-import { getConversationById, getMessages } from "@/lib/queries/conversations";
-import { getMatchById, getWaliChatInvolvement } from "@/lib/queries/matches";
+import { getConversationById, getMessages, getReactionsForConversation } from "@/lib/queries/conversations";
+import { getMatchById, getWaliChatPermission } from "@/lib/queries/matches";
 import { getProfileById } from "@/lib/queries/profiles";
 import { createClient } from "@/lib/supabase/server";
 
@@ -24,7 +24,8 @@ export default async function ChatThreadPage({ params }: { params: Promise<{ con
   if (!otherProfile) notFound();
 
   const initialMessages = await getMessages(supabase, conversationId);
-  const initialWaliInvolved = await getWaliChatInvolvement(supabase, conversation.matchId, user.id);
+  const initialReactions = await getReactionsForConversation(supabase, conversationId);
+  const initialWaliPermission = await getWaliChatPermission(supabase, conversation.matchId, user.id);
 
   return (
     <ChatScreen
@@ -33,7 +34,8 @@ export default async function ChatThreadPage({ params }: { params: Promise<{ con
       otherUserId={otherUserId}
       otherParticipantName={otherProfile.fullName ?? "Your match"}
       initialMessages={initialMessages}
-      initialWaliInvolved={initialWaliInvolved}
+      initialReactions={initialReactions}
+      initialWaliPermission={initialWaliPermission}
       matchId={match.id}
       initialMatchStatus={match.status}
     />

@@ -9,9 +9,17 @@ export type ConversationPreview = {
 
 export type ChatMessage = {
   id: string;
-  senderId: string;
+  /** Null for a guardian-authored message -- see waliSenderName instead. */
+  senderId: string | null;
+  waliSenderName: string | null;
   body: string;
   createdAt: string;
+};
+
+export type MessageReaction = {
+  messageId: string;
+  emoji: string;
+  waliName: string;
 };
 
 export async function getConversationsForUser(
@@ -79,14 +87,36 @@ export async function getConversationById(
 export async function getMessages(supabase: SupabaseClient, conversationId: string): Promise<ChatMessage[]> {
   const { data, error } = await supabase
     .from("messages")
-    .select("id, sender_id, body, created_at")
+    .select("id, sender_id, wali_sender_name, body, created_at")
     .eq("conversation_id", conversationId)
     .order("created_at", { ascending: true });
   if (error) throw error;
   return (data ?? []).map((row) => ({
     id: row.id,
     senderId: row.sender_id,
+    waliSenderName: row.wali_sender_name,
     body: row.body,
     createdAt: row.created_at,
+  }));
+}
+
+/** Guardian reactions across every message in a conversation, for the member's own view of the chat. */
+export async function getReactionsForConversation(
+  supabase: SupabaseClient,
+  conversationId: string,
+): Promise<MessageReaction[]> {
+  const { data, error } = await supabase
+    .from("message_reactions")
+    .select("emoji, message_id, messages!inner(conversation_id), wali_invites(wali_name)")
+    .eq("messages.conversation_id", conversationId);
+  if (error) throw error;
+  return ((data ?? []) as unknown as Array<{
+    emoji: string;
+    message_id: string;
+    wali_invites: { wali_name: string } | null;
+  }>).map((row) => ({
+    messageId: row.message_id,
+    emoji: row.emoji,
+    waliName: row.wali_invites?.wali_name ?? "Guardian",
   }));
 }

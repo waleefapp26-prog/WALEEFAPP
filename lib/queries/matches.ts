@@ -1,5 +1,8 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Match } from "@/lib/types/match";
+import type { WaliChatPermission } from "@/lib/types/wali";
+
+const PERMISSION_RANK: Record<WaliChatPermission, number> = { none: 0, read: 1, react: 2, chat: 3 };
 
 type MatchRow = {
   id: string;
@@ -25,20 +28,23 @@ export async function getConversationIdForMatch(supabase: SupabaseClient, matchI
   return (data as { id: string } | null)?.id ?? null;
 }
 
-export async function getWaliChatInvolvement(
+/** The highest chat permission among the requester's approved guardians for this match -- a match can now have more than one. */
+export async function getWaliChatPermission(
   supabase: SupabaseClient,
   matchId: string,
   requesterId: string,
-): Promise<boolean> {
+): Promise<WaliChatPermission> {
   const { data } = await supabase
     .from("wali_invites")
-    .select("chat_involved")
+    .select("chat_permission")
     .eq("match_id", matchId)
     .eq("requester_id", requesterId)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-  return (data as { chat_involved: boolean } | null)?.chat_involved ?? false;
+    .eq("status", "approved");
+  const rows = (data ?? []) as { chat_permission: WaliChatPermission }[];
+  return rows.reduce<WaliChatPermission>(
+    (max, row) => (PERMISSION_RANK[row.chat_permission] > PERMISSION_RANK[max] ? row.chat_permission : max),
+    "none",
+  );
 }
 
 /** Detailed compatibility questions unlock once the user has at least one mutual match. */

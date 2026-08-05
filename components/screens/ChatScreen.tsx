@@ -4,16 +4,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MoreVertical, Send, Shield, Star, Users } from "lucide-react";
-import { setMatchStatus, submitMatchRating, toggleChatInvolvement } from "@/app/dashboard/chat/actions";
+import { setMatchStatus, submitMatchRating } from "@/app/dashboard/chat/actions";
 import { Button, MemberAvatar, Modal, Textarea } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
-import type { ChatMessage } from "@/lib/queries/conversations";
+import { getReactionsForConversation, type ChatMessage, type MessageReaction } from "@/lib/queries/conversations";
+import type { WaliChatPermission } from "@/lib/types/wali";
 import styles from "@/styles/features/chat.module.css";
 
 type Msg = {
   id: string;
-  senderId: string;
+  senderId: string | null;
+  waliSenderName: string | null;
   text: string;
   timestamp: string;
 };
@@ -23,7 +25,13 @@ function formatTimestamp(iso: string) {
 }
 
 function toMsg(row: ChatMessage): Msg {
-  return { id: row.id, senderId: row.senderId, text: row.body, timestamp: formatTimestamp(row.createdAt) };
+  return {
+    id: row.id,
+    senderId: row.senderId,
+    waliSenderName: row.waliSenderName,
+    text: row.body,
+    timestamp: formatTimestamp(row.createdAt),
+  };
 }
 
 type Props = {
@@ -32,7 +40,8 @@ type Props = {
   otherUserId: string;
   otherParticipantName: string;
   initialMessages: ChatMessage[];
-  initialWaliInvolved: boolean;
+  initialReactions: MessageReaction[];
+  initialWaliPermission: WaliChatPermission;
   matchId: string;
   initialMatchStatus: "active" | "frozen";
 };
@@ -43,7 +52,8 @@ export function ChatScreen({
   otherUserId,
   otherParticipantName,
   initialMessages,
-  initialWaliInvolved,
+  initialReactions,
+  initialWaliPermission,
   matchId,
   initialMatchStatus,
 }: Props) {
@@ -51,9 +61,9 @@ export function ChatScreen({
   const supabase = createClient();
   const { dictionary } = useTranslation();
   const [messages, setMessages] = useState<Msg[]>(() => initialMessages.map(toMsg));
+  const [reactions, setReactions] = useState<MessageReaction[]>(initialReactions);
   const [text, setText] = useState("");
-  const [waliInvolved, setWaliInvolved] = useState(initialWaliInvolved);
-  const [waliError, setWaliError] = useState<string>();
+  const waliInvolved = initialWaliPermission !== "none";
   const [matchStatus, setMatchStatusState] = useState(initialMatchStatus);
   const [ratingOpen, setRatingOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -84,18 +94,45 @@ export function ChatScreen({
           filter: `conversation_id=eq.${conversationId}`,
         },
         (payload) => {
-          const row = payload.new as { id: string; sender_id: string; body: string; created_at: string };
+          const row = payload.new as {
+            id: string;
+            sender_id: string | null;
+            wali_sender_name: string | null;
+            body: string;
+            created_at: string;
+          };
           if (row.sender_id === currentUserId) return; // already shown via optimistic append
           setMessages((prev) => [
             ...prev,
-            { id: row.id, senderId: row.sender_id, text: row.body, timestamp: formatTimestamp(row.created_at) },
+            {
+              id: row.id,
+              senderId: row.sender_id,
+              waliSenderName: row.wali_sender_name,
+              text: row.body,
+              timestamp: formatTimestamp(row.created_at),
+            },
           ]);
+        },
+      )
+      .subscribe();
+
+    // Reactions are keyed by message, not conversation, so there's no simple
+    // equality filter to push down to Postgres -- refetch the (small,
+    // per-conversation) set on any change instead of hand-rolling a merge.
+    const reactionChannel = supabase
+      .channel(`conversation:${conversationId}:reactions`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "message_reactions" },
+        () => {
+          void getReactionsForConversation(supabase, conversationId).then(setReactions);
         },
       )
       .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
+      supabase.removeChannel(reactionChannel);
     };
   }, [supabase, conversationId, currentUserId]);
 
@@ -108,6 +145,7 @@ export function ChatScreen({
       {
         id: `local-${Date.now()}`,
         senderId: currentUserId,
+        waliSenderName: null,
         text: t,
         timestamp: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }),
       },
@@ -412,24 +450,10 @@ export function ChatScreen({
             <Shield className={styles.bannerShield} size={20} aria-hidden />
             <div style={{ flex: 1 }}>
               <p className={styles.bannerTitle}>{dictionary.chatScreen.respectfulTitle}</p>
-              <p className={styles.bannerDesc}>
-                {waliError === "no_wali_invite" ? dictionary.chatScreen.noWaliInvite : dictionary.chatScreen.respectfulDesc}
-              </p>
+              <p className={styles.bannerDesc}>{dictionary.chatScreen.respectfulDesc}</p>
             </div>
-            <Button
-              variant="outline"
-              className={styles.bannerBtn}
-              size="md"
-              onClick={async () => {
-                const result = await toggleChatInvolvement(conversationId, true);
-                if (result.success) {
-                  setWaliInvolved(result.involved);
-                } else {
-                  setWaliError(result.error);
-                }
-              }}
-            >
-              {dictionary.chatScreen.involveWali}
+            <Button href="/dashboard/family" variant="outline" className={styles.bannerBtn} size="md">
+              {dictionary.chatScreen.manageGuardianAccess}
             </Button>
           </div>
         </div>
@@ -437,7 +461,13 @@ export function ChatScreen({
         <div className={styles.bannerGreen}>
           <div className={styles.bannerGreenInner}>
             <Users className={styles.bannerGreenIcon} size={20} aria-hidden />
-            <p className={styles.bannerGreenText}>{dictionary.chatScreen.waliCanReview}</p>
+            <p className={styles.bannerGreenText}>
+              {initialWaliPermission === "chat"
+                ? dictionary.chatScreen.waliCanChat
+                : initialWaliPermission === "react"
+                  ? dictionary.chatScreen.waliCanReact
+                  : dictionary.chatScreen.waliCanReview}
+            </p>
           </div>
         </div>
       )}
@@ -445,13 +475,27 @@ export function ChatScreen({
       <div className={styles.messages}>
         <div className={styles.messagesInner}>
           {messages.map((msg) => {
-            const mine = msg.senderId === currentUserId;
+            const isWali = msg.senderId == null;
+            const mine = !isWali && msg.senderId === currentUserId;
+            const msgReactions = reactions.filter((r) => r.messageId === msg.id);
             return (
               <div key={msg.id} className={`${styles.row} ${mine ? styles.rowEnd : styles.rowStart}`}>
-                <div className={`${styles.bubble} ${mine ? styles.bubbleMe : styles.bubbleThem}`}>
+                <div className={`${styles.bubble} ${isWali ? styles.bubbleWali : mine ? styles.bubbleMe : styles.bubbleThem}`}>
+                  {isWali ? (
+                    <p className={styles.waliSenderLabel}>{msg.waliSenderName ?? dictionary.chatScreen.guardianLabel}</p>
+                  ) : null}
                   <p className={styles.bubbleText}>{msg.text}</p>
                   <p className={`${styles.time} ${mine ? styles.timeMe : styles.timeThem}`}>{msg.timestamp}</p>
                 </div>
+                {msgReactions.length > 0 ? (
+                  <div className={`${styles.reactionRow} ${mine ? styles.rowEnd : styles.rowStart}`}>
+                    {msgReactions.map((r) => (
+                      <span key={`${r.messageId}-${r.emoji}`} className={styles.reactionChip} title={r.waliName}>
+                        {r.emoji}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             );
           })}
