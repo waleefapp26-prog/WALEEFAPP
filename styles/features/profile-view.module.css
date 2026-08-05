@@ -77,7 +77,7 @@
   border-radius: 9999px;
   font-size: 0.875rem;
   color: var(--waleef-pink);
-  background: linear-gradient(90deg, #fdf2f8, #fff7ed);
+  background: var(--waleef-tint-gradient);
 }
 
 .sectionTitle {

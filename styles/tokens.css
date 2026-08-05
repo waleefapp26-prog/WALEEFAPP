@@ -11,6 +11,10 @@
    * (avatar tiles, photo panels) -- several screens had each hand-mixed a
    * slightly different pastel pink/orange for the same purpose. */
   --waleef-gradient-soft: linear-gradient(135deg, #fbcfe8 0%, #fed7aa 100%);
+  /* Pale pink-to-cream wash for highlighted text chips and "why this stands
+   * out" callouts -- reused verbatim across match-result, profile-view and
+   * subscription before this existed as one name. */
+  --waleef-tint-gradient: linear-gradient(90deg, #fdf2f8 0%, #fff7ed 100%);
   --waleef-beige: #f5f1e8;
   --waleef-cream: #fff8f0;
   --waleef-gold: #d4af37;

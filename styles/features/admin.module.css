@@ -121,7 +121,7 @@
   width: 4.5rem;
   height: 4.5rem;
   flex-shrink: 0;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   object-fit: cover;
   background: var(--waleef-beige);
 }

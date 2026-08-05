@@ -45,12 +45,12 @@
 }
 
 .optionCard:hover {
-  border-color: #e5e7eb;
+  border-color: var(--border-gray-200);
 }
 
 .optionSelected {
-  border-color: #ff6b9d;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08);
+  border-color: var(--waleef-pink);
+  box-shadow: var(--shadow-sm);
 }
 
 .optionRow {
@@ -72,7 +72,7 @@
 }
 
 .iconCircleOn {
-  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  background: var(--waleef-gradient-h);
   color: #fff;
 }
 
@@ -107,8 +107,8 @@
 .control {
   width: 100%;
   padding: 1rem 1.5rem;
-  border-radius: 16px;
-  border: 2px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-gray-200);
   font-size: 1rem;
   outline: none;
   transition: border-color 0.15s ease;
@@ -116,7 +116,7 @@
 }
 
 .control:focus {
-  border-color: #ff6b9d;
+  border-color: var(--waleef-pink);
 }
 
 .successWrap {
@@ -210,7 +210,7 @@
 .manualLink {
   width: 100%;
   padding: 0.6rem 0.75rem;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--waleef-beige);
   font-size: 0.8125rem;
   word-break: break-all;

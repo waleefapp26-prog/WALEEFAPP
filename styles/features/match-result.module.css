@@ -68,18 +68,18 @@
 }
 
 .heartIcon {
-  color: #ff6b9d;
+  color: var(--waleef-pink);
   flex-shrink: 0;
 }
 
 .point {
   padding: 1rem;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   margin-bottom: 1rem;
 }
 
 .pointStrong {
-  background: linear-gradient(90deg, #fdf2f8, #fff7ed);
+  background: var(--waleef-tint-gradient);
 }
 
 .pointSoft {

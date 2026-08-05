@@ -17,7 +17,7 @@
   border-radius: 9999px;
   background: var(--waleef-white);
   border: 1px solid var(--border-gray-200);
-  box-shadow: 0 1px 3px rgba(26, 26, 26, 0.05);
+  box-shadow: var(--shadow-xs);
   text-decoration: none;
   color: var(--waleef-text);
   transition:
@@ -28,7 +28,7 @@
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(26, 26, 26, 0.1);
+  box-shadow: var(--shadow-sm);
   border-color: transparent;
 }
 

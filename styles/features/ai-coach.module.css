@@ -50,7 +50,7 @@
 
 .topics {
   background: var(--waleef-white);
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-gray-200);
   padding: 0.7rem 1.25rem;
   flex-shrink: 0;
 }
@@ -87,7 +87,7 @@
 
 .chipPink {
   background: #fdf2f8;
-  color: #ff6b9d;
+  color: var(--waleef-pink);
 }
 
 .chipPink:hover {
@@ -96,7 +96,7 @@
 
 .chipOrange {
   background: #fff7ed;
-  color: #ff8a5c;
+  color: var(--waleef-orange);
 }
 
 .chipOrange:hover {
@@ -143,7 +143,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 9999px;
-  background: linear-gradient(to bottom right, #ff6b9d, #ff8a5c);
+  background: var(--waleef-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,19 +154,19 @@
 
 .bubble {
   max-width: 75%;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 1rem 1.25rem;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  box-shadow: var(--shadow-xs);
 }
 
 .bubbleUser {
-  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  background: var(--waleef-gradient-h);
   color: #fff;
 }
 
 .bubbleAi {
   background: var(--waleef-white);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-gray-200);
   color: var(--waleef-text);
 }
 
@@ -221,7 +221,7 @@
 
 .footer {
   background: var(--waleef-white);
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-gray-200);
   padding: 1rem 1.5rem;
 }
 
@@ -237,13 +237,13 @@
   flex: 1;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-gray-200);
   font-size: 1rem;
   outline: none;
 }
 
 .input:focus {
-  border-color: #ff6b9d;
+  border-color: var(--waleef-pink);
 }
 
 .send {
@@ -255,9 +255,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  background: var(--waleef-gradient-h);
   color: #fff;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .send:active {
