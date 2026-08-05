@@ -43,7 +43,7 @@
   border-radius: 9999px;
   background: var(--waleef-white);
   color: var(--waleef-text);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  box-shadow: var(--shadow-xs);
   text-decoration: none;
 }
 

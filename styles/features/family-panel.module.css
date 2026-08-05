@@ -52,11 +52,11 @@
 }
 
 .statOrange {
-  color: #ff8a5c;
+  color: var(--waleef-orange);
 }
 
 .statGreen {
-  color: #16a34a;
+  color: var(--status-success);
 }
 
 .statMuted {
@@ -89,7 +89,7 @@
   height: 5rem;
   border-radius: 9999px;
   flex-shrink: 0;
-  background: linear-gradient(to bottom right, #f9a8d4, #fdba74);
+  background: var(--waleef-gradient-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,7 +185,7 @@
   width: 3rem;
   height: 3rem;
   border-radius: 9999px;
-  background: linear-gradient(to bottom right, #fbcfe8, #fed7aa);
+  background: var(--waleef-gradient-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,18 +217,18 @@
 }
 
 .pillOk {
-  background: #dcfce7;
-  color: #15803d;
+  background: var(--status-success-bg);
+  color: var(--status-success);
 }
 
 .pillNo {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--status-danger-bg);
+  color: var(--status-danger);
 }
 
 .pillPending {
-  background: #fef3c7;
-  color: #b45309;
+  background: var(--status-warning-bg);
+  color: var(--status-warning);
 }
 
 .reason {

@@ -7,6 +7,10 @@
   --waleef-orange: #ff8a5c;
   --waleef-gradient: linear-gradient(135deg, #ff6b9d 0%, #ff8a5c 100%);
   --waleef-gradient-h: linear-gradient(90deg, #ff6b9d 0%, #ff8a5c 100%);
+  /* Softer version of the brand gradient for large placeholder surfaces
+   * (avatar tiles, photo panels) -- several screens had each hand-mixed a
+   * slightly different pastel pink/orange for the same purpose. */
+  --waleef-gradient-soft: linear-gradient(135deg, #fbcfe8 0%, #fed7aa 100%);
   --waleef-beige: #f5f1e8;
   --waleef-cream: #fff8f0;
   --waleef-gold: #d4af37;
@@ -15,13 +19,77 @@
   --waleef-text-secondary: #6b6b6b;
   --waleef-white: #ffffff;
 
+  /* Radius tiers. Small = controls people click precisely (inputs, chips,
+   * badges). Medium = buttons and compact cards. Large/xl = content cards.
+   * 2xl is reserved for a page's one or two hero surfaces -- used everywhere,
+   * it flattens hierarchy instead of creating it. */
+  --radius-sm: 10px;
+  --radius-md: 14px;
   --radius-lg: 20px;
   --radius-xl: 24px;
   --radius-2xl: 32px;
+
+  /* Elevation ladder, low to high. Reach for the lowest shadow that still
+   * reads -- a static card doesn't need the same lift as a modal. */
+  --shadow-xs: 0 1px 2px rgba(26, 26, 26, 0.05);
+  --shadow-sm: 0 2px 8px rgba(26, 26, 26, 0.06);
   --shadow-card: 0 10px 40px rgba(26, 26, 26, 0.08);
+  --shadow-md: var(--shadow-card);
+  --shadow-lg: 0 20px 45px rgba(26, 26, 26, 0.12);
   --shadow-float: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-xl: var(--shadow-float);
+
   --border-soft: 1px solid rgba(229, 231, 235, 1);
+  --border-gray-100: #f3f4f6;
   --border-gray-200: #e5e7eb;
+  --border-gray-300: #d1d5db;
+  --text-disabled: #9ca3af;
+
+  /* Semantic status colors. One canonical pair per meaning, each with a text
+   * tone and a soft background/border tone -- so "verified", "pending", and
+   * "error" read the same way on every screen instead of each file picking
+   * its own green/red/amber. */
+  --status-success: #15803d;
+  --status-success-bg: #dcfce7;
+  --status-success-border: #86efac;
+  --status-warning: #b45309;
+  --status-warning-bg: #fef3c7;
+  --status-warning-border: #fde68a;
+  --status-danger: #d9364a;
+  --status-danger-bg: #fee2e2;
+  --status-danger-border: #fecaca;
+  --status-info: #2563eb;
+  --status-info-bg: #eff6ff;
+  --status-info-border: #bfdbfe;
+
+  /* Spacing scale (4px base). Prefer these over one-off rem values so gaps,
+   * padding, and margins stay in the same rhythm across screens. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Type scale, built around the existing 16px base -- keeps headings and
+   * body copy proportional instead of each module inventing its own sizes. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --leading-tight: 1.15;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
 
   /* Dashboard chrome. --nav-height is what the fixed mobile bottom bar
    * occupies; every scrollable dashboard screen reserves this much space so

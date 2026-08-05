@@ -1,6 +1,6 @@
 .card {
   background: var(--waleef-white);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   transition:
     box-shadow 0.3s ease,
     transform 0.3s ease,
@@ -9,38 +9,38 @@
 
 .default {
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-xs);
 }
 
 .default:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-sm);
 }
 
 .profile {
   padding: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f3f4f6;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-gray-100);
 }
 
 .profile:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border-color: #fce7f3;
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 107, 157, 0.25);
 }
 
 .match {
   padding: 2rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-lg);
   border: 2px solid transparent;
 }
 
 .match:hover {
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
-  border-color: #fce7f3;
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 107, 157, 0.25);
 }
 
 .info {
   padding: 1.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-xs);
   background: linear-gradient(to bottom right, var(--waleef-white), var(--waleef-cream));
 }
 

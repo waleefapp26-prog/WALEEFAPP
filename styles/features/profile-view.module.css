@@ -6,7 +6,7 @@
 
 .hero {
   height: 24rem;
-  background: linear-gradient(to bottom right, #f9a8d4, #fdba74);
+  background: var(--waleef-gradient-soft);
   position: relative;
   display: flex;
   align-items: center;
@@ -111,7 +111,7 @@
 .cell {
   padding: 1rem;
   background: var(--waleef-cream);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 }
 
 .cellLabel {

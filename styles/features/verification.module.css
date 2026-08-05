@@ -48,18 +48,18 @@
 }
 
 .pillOk {
-  background: #dcfce7;
-  color: #15803d;
+  background: var(--status-success-bg);
+  color: var(--status-success);
 }
 
 .pillNo {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--status-danger-bg);
+  color: var(--status-danger);
 }
 
 .pillPending {
-  background: #fef3c7;
-  color: #b45309;
+  background: var(--status-warning-bg);
+  color: var(--status-warning);
 }
 
 .fieldLabel {

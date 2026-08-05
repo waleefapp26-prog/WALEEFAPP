@@ -109,9 +109,9 @@
 }
 
 .badgeOn {
-  background: #ecfdf5;
-  color: #047857;
-  border-color: #a7f3d0;
+  background: var(--status-success-bg);
+  color: var(--status-success);
+  border-color: var(--status-success-border);
 }
 
 .badgeOff {
@@ -121,9 +121,9 @@
 }
 
 .badgePlan {
-  background: #fffbeb;
-  color: #92400e;
-  border-color: #fde68a;
+  background: var(--status-warning-bg);
+  color: var(--status-warning);
+  border-color: var(--status-warning-border);
   text-transform: capitalize;
 }
 
@@ -158,12 +158,12 @@
 
 .savedNote {
   font-size: 0.8125rem;
-  color: #047857;
+  color: var(--status-success);
 }
 
 .errorNote {
   font-size: 0.8125rem;
-  color: #d9364a;
+  color: var(--status-danger);
 }
 
 .chips {
@@ -196,7 +196,7 @@
   border: 1px solid var(--border-gray-200);
   border-radius: 9999px;
   background: var(--waleef-white);
-  color: #d9364a;
+  color: var(--status-danger);
   font-family: inherit;
   font-size: 0.9375rem;
   font-weight: 500;
@@ -207,8 +207,8 @@
 }
 
 .signOut:hover {
-  background: rgba(217, 54, 74, 0.06);
-  border-color: rgba(217, 54, 74, 0.3);
+  background: var(--status-danger-bg);
+  border-color: var(--status-danger-border);
 }
 
 .signOut:disabled {

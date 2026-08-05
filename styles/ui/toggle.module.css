@@ -17,7 +17,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  background: #d1d5db;
+  background: var(--border-gray-300);
   transition: background 0.3s ease;
 }
 

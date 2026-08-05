@@ -35,7 +35,7 @@
 .error {
   font-size: 0.8125rem;
   line-height: 1.4;
-  color: #e63946;
+  color: var(--status-danger);
 }
 
 .actions {

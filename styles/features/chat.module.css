@@ -10,7 +10,7 @@
 
 .header {
   background: var(--waleef-white);
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-gray-200);
   padding: 1rem 1.5rem;
 }
 
@@ -32,7 +32,7 @@
   width: 3rem;
   height: 3rem;
   border-radius: 9999px;
-  background: linear-gradient(to bottom right, #f9a8d4, #fdba74);
+  background: var(--waleef-gradient-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,7 +56,7 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 9999px;
-  background: #22c55e;
+  background: var(--status-success);
 }
 
 .statusText {
@@ -74,12 +74,12 @@
 }
 
 .iconBtn:hover {
-  background: #f3f4f6;
+  background: var(--border-gray-100);
 }
 
 .banner {
-  border-bottom: 1px solid #bfdbfe;
-  background: linear-gradient(to right, #eff6ff, #ecfeff);
+  border-bottom: 1px solid var(--status-info-border);
+  background: var(--status-info-bg);
 }
 
 .bannerInner {
@@ -92,7 +92,7 @@
 }
 
 .bannerShield {
-  color: #2563eb;
+  color: var(--status-info);
   flex-shrink: 0;
   margin-top: 0.125rem;
 }
@@ -101,13 +101,13 @@
   margin: 0;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #1e3a8a;
+  color: var(--status-info);
 }
 
 .bannerDesc {
   margin: 0.25rem 0 0;
   font-size: 0.75rem;
-  color: #1d4ed8;
+  color: var(--status-info);
 }
 
 .bannerBtn {
@@ -115,8 +115,8 @@
 }
 
 .bannerGreen {
-  border-bottom: 1px solid #bbf7d0;
-  background: linear-gradient(to right, #f0fdf4, #ecfdf5);
+  border-bottom: 1px solid var(--status-success-border);
+  background: var(--status-success-bg);
 }
 
 .bannerGreenInner {
@@ -129,13 +129,13 @@
 }
 
 .bannerGreenIcon {
-  color: #16a34a;
+  color: var(--status-success);
 }
 
 .bannerGreenText {
   margin: 0;
   font-size: 0.875rem;
-  color: #14532d;
+  color: var(--status-success);
 }
 
 .messages {
@@ -166,19 +166,19 @@
 
 .bubble {
   max-width: 70%;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: 0.75rem 1rem;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  box-shadow: var(--shadow-xs);
 }
 
 .bubbleMe {
-  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  background: var(--waleef-gradient-h);
   color: #fff;
 }
 
 .bubbleThem {
   background: var(--waleef-white);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-gray-200);
   color: var(--waleef-text);
 }
 
@@ -203,7 +203,7 @@
 
 .footer {
   background: var(--waleef-white);
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-gray-200);
   padding: 1rem 1.5rem;
 }
 
@@ -219,14 +219,14 @@
   flex: 1;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-gray-200);
   font-size: 1rem;
   outline: none;
   transition: border-color 0.15s ease;
 }
 
 .input:focus {
-  border-color: #ff6b9d;
+  border-color: var(--waleef-pink);
 }
 
 .send {
@@ -238,9 +238,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #ff6b9d, #ff8a5c);
+  background: var(--waleef-gradient-h);
   color: #fff;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .send:active {
@@ -251,7 +251,7 @@
    be swallowed, so a failed action looked identical to a no-op. */
 .actionError {
   margin: 0.5rem 0 0;
-  color: #d9364a;
+  color: var(--status-danger);
   font-size: 0.875rem;
 }
 
@@ -271,9 +271,9 @@
 .statusNotice {
   margin: 0;
   padding: 0.6rem 1.25rem;
-  background: #fff7ed;
-  border-bottom: 1px solid #fed7aa;
-  color: #9a3412;
+  background: var(--status-warning-bg);
+  border-bottom: 1px solid var(--status-warning-border);
+  color: var(--status-warning);
   font-size: 0.8125rem;
   text-align: center;
 }

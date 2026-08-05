@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.5;
@@ -61,8 +61,8 @@
 }
 
 .disabled {
-  background: #e5e7eb;
-  color: #9ca3af;
+  background: var(--border-gray-200);
+  color: var(--text-disabled);
   cursor: not-allowed;
   box-shadow: none;
 }
