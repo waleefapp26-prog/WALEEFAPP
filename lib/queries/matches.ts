@@ -47,6 +47,46 @@ export async function getWaliChatPermission(
   );
 }
 
+export type MatchWithPartner = { matchId: string; partnerId: string; partnerName: string | null };
+
+/** The user's matches with the other person's display name.
+ *
+ *  Needed by the Family panel: inviting a guardian is per-match, and the only
+ *  way to reach that flow used to be the match-result screen shown once when a
+ *  match is created -- leaving it stranded the member with no way back. */
+export async function getMatchesWithPartner(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<MatchWithPartner[]> {
+  const { data, error } = await supabase
+    .from("matches")
+    .select("id, user_a, user_b")
+    .or(`user_a.eq.${userId},user_b.eq.${userId}`)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+
+  const rows = (data as { id: string; user_a: string; user_b: string }[] | null) ?? [];
+  if (rows.length === 0) return [];
+
+  const partnerIds = rows.map((r) => (r.user_a === userId ? r.user_b : r.user_a));
+  const { data: profiles } = await supabase
+    .from("profiles")
+    .select("id, full_name, pseudonym")
+    .in("id", partnerIds);
+
+  const nameById = new Map(
+    ((profiles as { id: string; full_name: string | null; pseudonym: string | null }[] | null) ?? []).map((p) => [
+      p.id,
+      p.pseudonym ?? p.full_name,
+    ]),
+  );
+
+  return rows.map((row) => {
+    const partnerId = row.user_a === userId ? row.user_b : row.user_a;
+    return { matchId: row.id, partnerId, partnerName: nameById.get(partnerId) ?? null };
+  });
+}
+
 /** Detailed compatibility questions unlock once the user has at least one mutual match. */
 export async function hasAnyMatch(supabase: SupabaseClient, userId: string): Promise<boolean> {
   const { count, error } = await supabase

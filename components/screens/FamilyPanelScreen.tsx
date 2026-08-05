@@ -1,20 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle, Clock, Eye, XCircle } from "lucide-react";
+import { CheckCircle, Clock, Eye, UserPlus, XCircle } from "lucide-react";
 import { setWaliChatPermission } from "@/app/dashboard/family/actions";
-import { Card } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
+import type { MatchWithPartner } from "@/lib/queries/matches";
 import type { WaliChatPermission, WaliInvite } from "@/lib/types/wali";
 import styles from "@/styles/features/family-panel.module.css";
 
 type Props = {
   invites: WaliInvite[];
+  /** Guardians are invited per match, so this drives the invite entry point. */
+  matches: MatchWithPartner[];
 };
 
 const PERMISSION_LEVELS: WaliChatPermission[] = ["none", "read", "react", "chat"];
 
-export function FamilyPanelScreen({ invites: initialInvites }: Props) {
+export function FamilyPanelScreen({ invites: initialInvites, matches }: Props) {
   const { dictionary } = useTranslation();
   const [invites, setInvites] = useState(initialInvites);
   const [savingId, setSavingId] = useState<string | null>(null);
@@ -89,6 +92,37 @@ export function FamilyPanelScreen({ invites: initialInvites }: Props) {
             </div>
           </Card>
         </div>
+
+        {/* The only route into the proposal flow used to be the match-result
+            screen, shown once when a match is created. Members who navigated
+            away had no way back, and this panel -- the obvious place to look --
+            was read-only. */}
+        <section className={styles.inviteSection}>
+          <h2 className={styles.sectionTitle}>{dictionary.family.inviteTitle}</h2>
+          {matches.length === 0 ? (
+            <p className={styles.sub}>{dictionary.family.inviteNeedsMatch}</p>
+          ) : (
+            <>
+              <p className={styles.sub}>{dictionary.family.inviteHelp}</p>
+              <div className={styles.inviteList}>
+                {matches.map((match) => (
+                  <Button
+                    key={match.matchId}
+                    href={`/dashboard/proposal/${match.matchId}`}
+                    variant="outline"
+                    className={styles.inviteBtn}
+                  >
+                    <UserPlus size={18} aria-hidden />
+                    {dictionary.family.inviteFor.replace(
+                      "{name}",
+                      match.partnerName ?? dictionary.chatList.yourMatch,
+                    )}
+                  </Button>
+                ))}
+              </div>
+            </>
+          )}
+        </section>
 
         <section>
           <h2 className={styles.sectionTitle}>{dictionary.family.yourRequests}</h2>

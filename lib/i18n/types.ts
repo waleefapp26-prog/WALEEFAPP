@@ -192,6 +192,10 @@ export type Dictionary = {
     view: string;
   };
   family: {
+    inviteTitle: string;
+    inviteHelp: string;
+    inviteFor: string;
+    inviteNeedsMatch: string;
     title: string;
     sub: string;
     pending: string;

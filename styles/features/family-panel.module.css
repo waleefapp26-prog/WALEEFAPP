@@ -307,3 +307,20 @@
   font-size: 0.75rem;
   color: var(--waleef-text-secondary);
 }
+
+/* Entry point into the proposal flow, per match. */
+.inviteSection {
+  margin-bottom: 1.75rem;
+}
+
+.inviteList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.inviteBtn {
+  justify-content: flex-start;
+  gap: 0.6rem;
+}

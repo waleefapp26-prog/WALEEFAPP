@@ -299,6 +299,10 @@ export const en: Dictionary = {
     view: "View",
   },
   family: {
+    inviteTitle: "Invite a guardian",
+    inviteHelp: "Choose which match your guardian should be involved in.",
+    inviteFor: "Invite a guardian for {name}",
+    inviteNeedsMatch: "Once you have a match, you can invite your guardian to review it here.",
     title: "Family Involvement",
     sub: "Track the guardians you've invited to review your matches",
     pending: "Pending",
