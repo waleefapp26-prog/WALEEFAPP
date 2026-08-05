@@ -152,6 +152,10 @@
   margin-bottom: 1rem;
 }
 
+.inviteAnotherBtn {
+  margin-top: 0.25rem;
+}
+
 .nextTitle {
   margin: 0 0 0.5rem;
   font-weight: 500;

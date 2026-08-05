@@ -26,6 +26,7 @@ export default async function MatchResultPage({ params }: { params: Promise<{ ma
   return (
     <MatchResultScreen
       matchId={match.id}
+      otherProfileId={otherUserId}
       name={otherProfile.fullName ?? "Your match"}
       percentage={compatibility.overall}
       conversationId={conversationId}

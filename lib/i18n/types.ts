@@ -235,6 +235,7 @@ export type Dictionary = {
     nextStep1: string;
     nextStep2: string;
     nextStep3: string;
+    inviteAnotherGuardian: string;
     submitRequest: string;
     submitting: string;
   };
@@ -308,6 +309,7 @@ export type Dictionary = {
     pointsToDiscuss: string;
     involveFamily: string;
     startConversation: string;
+    viewProfile: string;
     footnote: string;
   };
   questionnaireScreen: {

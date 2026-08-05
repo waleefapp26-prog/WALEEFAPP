@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { Heart, MessageCircle, Sparkles, Users } from "lucide-react";
+import { Heart, MessageCircle, Sparkles, User, Users } from "lucide-react";
 import { Button, Card, MatchPercentage } from "@/components/ui";
 import { MATCH_CONSIDERATIONS, MATCH_STRONG_POINTS } from "@/lib/content/match-result";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
@@ -8,6 +8,7 @@ import styles from "@/styles/features/match-result.module.css";
 
 type Props = {
   matchId: string;
+  otherProfileId: string;
   name: string;
   percentage: number | null;
   conversationId: string | null;
@@ -15,7 +16,15 @@ type Props = {
   conflicts?: string[];
 };
 
-export function MatchResultScreen({ matchId, name, percentage, conversationId, strengths, conflicts }: Props) {
+export function MatchResultScreen({
+  matchId,
+  otherProfileId,
+  name,
+  percentage,
+  conversationId,
+  strengths,
+  conflicts,
+}: Props) {
   const { dictionary } = useTranslation();
   const hasRealStrengths = strengths && strengths.length > 0;
   const hasRealConflicts = conflicts && conflicts.length > 0;
@@ -68,6 +77,16 @@ export function MatchResultScreen({ matchId, name, percentage, conversationId, s
                 </div>
               ))}
         </Card>
+
+        <Button
+          href={`/dashboard/profile/${otherProfileId}`}
+          variant="outline"
+          wide
+          className={styles.viewProfileBtn}
+        >
+          <User size={20} aria-hidden />
+          {dictionary.matchResult.viewProfile}
+        </Button>
 
         <div className={styles.actions}>
           <Button href={`/dashboard/proposal/${matchId}`} variant="secondary" className={styles.actionBtn}>

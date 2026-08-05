@@ -343,6 +343,7 @@ export const en: Dictionary = {
     nextStep1: "Your guardian receives an email with a secure review link.",
     nextStep2: "They can approve or decline with no account needed.",
     nextStep3: "You can check the status anytime from the Family tab.",
+    inviteAnotherGuardian: "Invite another guardian",
     submitRequest: "Submit Request",
     submitting: "Submitting...",
   },
@@ -417,6 +418,7 @@ export const en: Dictionary = {
     pointsToDiscuss: "Points to Discuss",
     involveFamily: "Involve Family",
     startConversation: "Start Conversation",
+    viewProfile: "View Full Profile",
     footnote: "Remember: Take your time and involve your wali when you're ready",
   },
   questionnaireScreen: {

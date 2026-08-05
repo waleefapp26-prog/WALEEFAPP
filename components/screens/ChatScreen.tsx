@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MoreVertical, Send, Shield, Star, Users } from "lucide-react";
 import { setMatchStatus, submitMatchRating, toggleChatInvolvement } from "@/app/dashboard/chat/actions";
@@ -198,7 +199,7 @@ export function ChatScreen({
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <div className={styles.peer}>
+          <Link href={`/dashboard/profile/${otherUserId}`} className={styles.peer}>
             <MemberAvatar
               userId={otherUserId}
               fallback={otherParticipantName}
@@ -212,7 +213,7 @@ export function ChatScreen({
                 <span className={styles.statusText}>{dictionary.chatScreen.online}</span>
               </div>
             </div>
-          </div>
+          </Link>
           <button
             type="button"
             className={styles.iconBtn}

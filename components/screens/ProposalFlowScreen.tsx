@@ -70,6 +70,18 @@ export function ProposalFlowScreen({ matchId }: Props) {
     setStep(step + 1);
   };
 
+  // A match can have more than one guardian looped in (e.g. both parents) --
+  // nothing in wali_invites limits a match to a single row, so this just
+  // clears the form and sends the member back to step 2 to submit another.
+  const handleInviteAnother = () => {
+    setWaliInfo({ name: "", relation: "", phone: "", email: "" });
+    setSubmitError(undefined);
+    setManualLink(undefined);
+    setEmailSent(true);
+    setCopied(false);
+    setStep(2);
+  };
+
   const content =
     step === 1 ? (
       <>
@@ -205,6 +217,12 @@ export function ProposalFlowScreen({ matchId }: Props) {
               <li>{dictionary.proposal.nextStep3}</li>
             </ol>
           </Card>
+          {selectedApproach === "wali" ? (
+            <Button variant="outline" wide className={styles.inviteAnotherBtn} onClick={handleInviteAnother}>
+              <Users size={18} aria-hidden />
+              {dictionary.proposal.inviteAnotherGuardian}
+            </Button>
+          ) : null}
         </div>
       </div>
     );

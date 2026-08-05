@@ -337,6 +337,7 @@ export const ar: Dictionary = {
     nextStep1: "سيصل وليّك بريد إلكتروني برابط مراجعة آمن.",
     nextStep2: "يمكنه الموافقة أو الرفض دون الحاجة لحساب.",
     nextStep3: "يمكنك متابعة الحالة في أي وقت من تبويب العائلة.",
+    inviteAnotherGuardian: "دعوة ولي آخر",
     submitRequest: "إرسال الطلب",
     submitting: "جارٍ الإرسال...",
   },
@@ -411,6 +412,7 @@ export const ar: Dictionary = {
     pointsToDiscuss: "نقاط للنقاش",
     involveFamily: "إشراك العائلة",
     startConversation: "ابدأ محادثة",
+    viewProfile: "عرض الملف الشخصي كاملاً",
     footnote: "تذكر: خذ وقتك وأشرك وليّك عندما تكون مستعداً",
   },
   questionnaireScreen: {
