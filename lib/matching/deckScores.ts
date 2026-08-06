@@ -49,8 +49,13 @@ export async function getDeckCompatibilityScores(
 
   const { data: questions } = await service
     .from("questions")
+    // Keyed on match_bucket, not section: which questions count is data, so
+    // the four registration questions tagged in schema-phase8 are included.
+    // Restricting to the post-match sections meant the deck -- which by
+    // definition shows people you have not matched -- could never score
+    // anything, and every card read "--".
     .select("id, match_bucket, importance, question_text_en, options")
-    .in("section", ["compatibility", "optional"])
+    .not("match_bucket", "is", null)
     .eq("type", "select");
 
   const questionRows = (questions as QuestionRow[] | null) ?? [];

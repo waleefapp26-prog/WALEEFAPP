@@ -83,8 +83,10 @@ export async function getCompatibility(
 
   const { data: questions } = await service
     .from("questions")
+    // See deckScores.ts: scoring keys off match_bucket so registration
+    // questions tagged for matching count too.
     .select("id, slug, match_bucket, importance, question_text_en, options")
-    .in("section", ["compatibility", "optional"])
+    .not("match_bucket", "is", null)
     .eq("type", "select");
 
   const questionRows = (questions as QuestionRow[] | null) ?? [];
