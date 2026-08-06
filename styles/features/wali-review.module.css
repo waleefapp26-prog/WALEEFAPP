@@ -92,3 +92,33 @@
   font-size: 0.875rem;
   line-height: 1.5;
 }
+
+/* What the family member has granted this guardian, shown once approved. */
+.accessBox {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.accessLabel {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.accessLevel {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--waleef-text-secondary);
+}
+
+.accessNone {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--waleef-text-secondary);
+  line-height: 1.5;
+}

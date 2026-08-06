@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button, Card } from "@/components/ui";
 import { useTranslation } from "@/lib/i18n/LanguageProvider";
 import { createClient } from "@/lib/supabase/client";
+import type { WaliChatPermission } from "@/lib/types/wali";
 import styles from "@/styles/features/wali-review.module.css";
 
 export type WaliInviteDetails = {
@@ -16,9 +17,17 @@ export type WaliInviteDetails = {
 type Props = {
   token: string;
   invite: WaliInviteDetails;
+  /** What the family member has granted this guardian, if anything. */
+  permission: WaliChatPermission;
 };
 
-export function WaliReviewScreen({ token, invite }: Props) {
+const PERMISSION_KEY: Record<Exclude<WaliChatPermission, "none">, "accessRead" | "accessReact" | "accessChat"> = {
+  read: "accessRead",
+  react: "accessReact",
+  chat: "accessChat",
+};
+
+export function WaliReviewScreen({ token, invite, permission }: Props) {
   const supabase = createClient();
   const { dictionary } = useTranslation();
   const [status, setStatus] = useState(invite.status);
@@ -79,6 +88,26 @@ export function WaliReviewScreen({ token, invite }: Props) {
               {status === "approved" ? dictionary.waliReview.approvedMsg : dictionary.waliReview.declinedMsg}
             </p>
           )}
+
+          {/* After approving, this page used to be a dead end: a guardian had
+              no way to learn whether the family member had granted them chat
+              access, and no link to it. The only route in was the separate
+              email-code dashboard at /wali, which nothing pointed them to. */}
+          {status === "approved" ? (
+            <div className={styles.accessBox}>
+              <p className={styles.accessLabel}>{dictionary.waliReview.accessTitle}</p>
+              {permission === "none" ? (
+                <p className={styles.accessNone}>{dictionary.waliReview.accessNone}</p>
+              ) : (
+                <>
+                  <p className={styles.accessLevel}>{dictionary.waliReview[PERMISSION_KEY[permission]]}</p>
+                  <Button href={`/wali/${token}/chat`} variant="outline">
+                    {dictionary.waliReview.openChat}
+                  </Button>
+                </>
+              )}
+            </div>
+          ) : null}
 
           {error ? <p className={styles.errorText}>{error}</p> : null}
         </Card>

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { WaliReviewScreen, type WaliInviteDetails } from "@/components/screens/WaliReviewScreen";
+import type { WaliChatPermission } from "@/lib/types/wali";
 import { createClient } from "@/lib/supabase/server";
 
 type WaliInviteRpcRow = {
@@ -20,6 +21,11 @@ export default async function WaliInvitePage({ params }: { params: Promise<{ tok
 
   if (error || !data) notFound();
 
+  // Tells the guardian what they've been granted, and whether there's a chat
+  // to open at all.
+  const { data: permissionData } = await supabase.rpc("get_wali_chat_permission", { p_token: token });
+  const permission = (permissionData as WaliChatPermission | null) ?? "none";
+
   const invite: WaliInviteDetails = {
     status: data.status,
     waliName: data.wali_name,
@@ -27,5 +33,5 @@ export default async function WaliInvitePage({ params }: { params: Promise<{ tok
     matchOtherName: data.match_other_name,
   };
 
-  return <WaliReviewScreen token={token} invite={invite} />;
+  return <WaliReviewScreen token={token} invite={invite} permission={permission} />;
 }

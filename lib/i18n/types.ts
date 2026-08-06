@@ -362,6 +362,12 @@ export type Dictionary = {
     describeIdealMatch: string;
   };
   waliReview: {
+    accessTitle: string;
+    accessNone: string;
+    accessRead: string;
+    accessReact: string;
+    accessChat: string;
+    openChat: string;
     heading: string;
     assalamu: string;
     requestedInvolvement: string;

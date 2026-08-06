@@ -473,6 +473,12 @@ export const en: Dictionary = {
     describeIdealMatch: "Describe your ideal match",
   },
   waliReview: {
+    accessTitle: "Your access to their conversation",
+    accessNone: "You have not been given access to the conversation. If you need it, ask your family member to grant it from their Family page.",
+    accessRead: "You can read their conversation.",
+    accessReact: "You can read their conversation and react to messages.",
+    accessChat: "You can read, react, and write in their conversation.",
+    openChat: "Open the conversation",
     heading: "Guardian Review",
     assalamu: "Assalamu alaikum",
     requestedInvolvement: "has requested your involvement in reviewing a potential marriage match",
