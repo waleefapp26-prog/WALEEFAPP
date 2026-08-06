@@ -9,7 +9,17 @@ type QuestionRow = {
   match_bucket: string | null;
   importance: number | null;
   question_text_en: string;
+  options: { value: string }[] | null;
 };
+
+/** See the matching note in deckScores.ts: answers stored before the question
+ *  bank was reseeded point at option values that no longer exist, and scoring
+ *  them guaranteed a false disagreement. */
+function isLiveOption(question: QuestionRow, value: string): boolean {
+  const options = question.options;
+  if (!options || options.length === 0) return true;
+  return options.some((option) => option.value === value);
+}
 
 type AnswerRow = {
   user_id: string;
@@ -73,7 +83,7 @@ export async function getCompatibility(
 
   const { data: questions } = await service
     .from("questions")
-    .select("id, slug, match_bucket, importance, question_text_en")
+    .select("id, slug, match_bucket, importance, question_text_en, options")
     .in("section", ["compatibility", "optional"])
     .eq("type", "select");
 
@@ -106,6 +116,7 @@ export async function getCompatibility(
       const a = answersA.get(question.id);
       const b = answersB.get(question.id);
       if (a === undefined || b === undefined) continue;
+      if (!isLiveOption(question, a) || !isLiveOption(question, b)) continue;
       scored.push({
         bucket: question.match_bucket ?? "general",
         importance: question.importance ?? 1,

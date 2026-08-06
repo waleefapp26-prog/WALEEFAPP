@@ -6,7 +6,20 @@ type QuestionRow = {
   match_bucket: string | null;
   importance: number | null;
   question_text_en: string;
+  options: { value: string }[] | null;
 };
+
+/** Answers written before the question bank was reseeded still hold option
+ *  values that no longer exist ("never" where the options are now yes/no/
+ *  sometimes/quit). Those can never equal the other person's answer, so
+ *  counting them scored a guaranteed disagreement on a question neither party
+ *  actually disagreed about -- one real pair showed 22% instead of 70%.
+ *  Treat them as unanswered instead. */
+function isLiveOption(question: QuestionRow, value: string): boolean {
+  const options = question.options;
+  if (!options || options.length === 0) return true; // free-form: nothing to validate against
+  return options.some((option) => option.value === value);
+}
 
 type AnswerRow = {
   user_id: string;
@@ -36,7 +49,7 @@ export async function getDeckCompatibilityScores(
 
   const { data: questions } = await service
     .from("questions")
-    .select("id, match_bucket, importance, question_text_en")
+    .select("id, match_bucket, importance, question_text_en, options")
     .in("section", ["compatibility", "optional"])
     .eq("type", "select");
 
@@ -71,6 +84,9 @@ export async function getDeckCompatibilityScores(
       const theirAnswer = theirs.get(questionId);
       if (theirAnswer === undefined) continue;
       const question = questionById.get(questionId)!;
+      // Either side holding a stale option value means this question can't be
+      // compared -- skip rather than score it as a disagreement.
+      if (!isLiveOption(question, myAnswer) || !isLiveOption(question, theirAnswer)) continue;
       scored.push({
         bucket: question.match_bucket ?? "general",
         importance: question.importance ?? 1,
